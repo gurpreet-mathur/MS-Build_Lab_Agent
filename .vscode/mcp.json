@@ -1,0 +1,13 @@
+{
+  "servers": {
+    "lab-lifecycle": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${workspaceFolder}/mcp-server/src/index.js"]
+    },
+    "Microsoft Learn": {
+      "type": "http",
+      "url": "https://learn.microsoft.com/api/mcp"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "lab-lifecycle-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP Server for Lab Lifecycle Skill — deploy, manage, and destroy Build labs",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  }
+}

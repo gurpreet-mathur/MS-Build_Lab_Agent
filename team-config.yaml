@@ -1,0 +1,50 @@
+# Team configuration for Lab Lifecycle Skill
+# Customize per team — shared defaults for all members
+
+defaults:
+  subscription_id: "0837f455-5e03-40aa-b602-9a4f8afc25a1"
+  location: "eastus2"
+  principal_type: "User"
+  org: "msbl26"
+  # Tags applied to all lab deployments
+  tags:
+    team: "build-demos"
+    purpose: "lab-lifecycle"
+    managed-by: "lab-lifecycle-skill"
+
+labs:
+  LAB520:
+    repo: "https://github.com/microsoft/Build26-LAB520-get-started-with-models-in-microsoft-foundry-to-build-ai-apps"
+    description: "Get Started with Models in Microsoft Foundry to Build AI Apps"
+    deploy_time: "3 min"
+    azure_yaml_path: "."
+    env_overrides: {}
+    
+  LAB540:
+    repo: "https://github.com/microsoft/Build26-LAB540-observe-optimize-and-protect-your-hosted-agents-in-microsoft-foundry"
+    description: "Observe, Optimize and Protect Your Hosted Agents in Microsoft Foundry"
+    deploy_time: "10 min"
+    azure_yaml_path: "zava"
+    env_overrides:
+      ENABLE_CAPABILITY_HOST: "true"
+      ENABLE_HOSTED_AGENTS: "true"
+    post_deploy_notes: |
+      - Container agent takes 5-10 min for first-time image build
+      - If azd deploy times out, wait 3 min and retry
+      - Test with: azd ai agent invoke zava-concierge "Hotels in Tokyo?"
+
+  LAB511:
+    repo: "https://github.com/microsoft/Build26-LAB511-create-advanced-postgres-powered-agentic-apps-with-azure-horizondb"
+    description: "Create Advanced Postgres-powered Agentic Apps with Azure HorizonDB"
+    deploy_time: "5 min (estimated)"
+    azure_yaml_path: "."
+    env_overrides: {}
+    status: "untested"
+
+  LAB532:
+    repo: "https://github.com/microsoft/Build26-LAB532-from-data-to-context-agent-ready-knowledge-with-foundry-iq"
+    description: "From Data to Context: Agent-ready Knowledge with Foundry IQ"
+    deploy_time: "5 min (estimated)"
+    azure_yaml_path: "."
+    env_overrides: {}
+    status: "untested"
