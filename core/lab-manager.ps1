@@ -541,6 +541,20 @@ function Invoke-Deploy {
         return @{ success = $false; lab_code = $labCode; env_name = $envName; duration = [int]$duration.TotalSeconds; error = "provision_failed" } | ConvertTo-Json
     }
     
+    # Register immediately after provision so destroy always works (even if deploy times out)
+    $registry = Get-Registry
+    $deployment = @{
+        lab_code = $labCode
+        env_name = $envName
+        repo_url = $RepoUrl
+        location = $Location
+        azd_dir = $azdDir
+        provisioned_at = (Get-Date -Format "o")
+        status = "provisioned"
+    }
+    $registry.deployments = @($registry.deployments) + @($deployment)
+    Save-Registry $registry
+    
     # Fix common env var issues after provision
     $projectEndpoint = azd env get-value AZURE_AI_PROJECT_ENDPOINT -e $envName 2>$null
     if ($projectEndpoint) {
@@ -558,19 +572,13 @@ function Invoke-Deploy {
     
     $success = $LASTEXITCODE -eq 0
     
-    # Register deployment
+    # Update registry entry (already registered after provision)
     $registry = Get-Registry
-    $deployment = @{
-        lab_code = $labCode
-        env_name = $envName
-        repo_url = $RepoUrl
-        location = $Location
-        azd_dir = $azdDir
-        deployed_at = (Get-Date -Format "o")
-        duration_seconds = [int]$duration.TotalSeconds
-        status = if ($success) { "deployed" } else { "partial" }
+    $registry.deployments | Where-Object { $_.env_name -eq $envName -and $_.status -eq "provisioned" } | ForEach-Object {
+        $_.status = if ($success) { "deployed" } else { "partial" }
+        $_.deployed_at = (Get-Date -Format "o")
+        $_.duration_seconds = [int]$duration.TotalSeconds
     }
-    $registry.deployments = @($registry.deployments) + @($deployment)
     Save-Registry $registry
     
     if ($success) {
@@ -595,7 +603,7 @@ function Invoke-Destroy {
     
     # Find deployment in registry
     $registry = Get-Registry
-    $deployment = $registry.deployments | Where-Object { $_.lab_code -eq $labCode -and $_.status -eq "deployed" } | Select-Object -Last 1
+    $deployment = $registry.deployments | Where-Object { $_.lab_code -eq $labCode -and $_.status -in @("deployed", "partial", "provisioned") } | Select-Object -Last 1
     
     if (-not $deployment) {
         Write-Host "  ❌ No active deployment found for $labCode" -ForegroundColor Red
