@@ -36,6 +36,17 @@ const TOOLS = [
     },
   },
   {
+    name: "prepare_lab",
+    description: "Check a lab repo's deployment readiness: detects missing azure.yaml, infra/, Docker issues, and provides step-by-step remediation guidance",
+    inputSchema: {
+      type: "object",
+      properties: {
+        repo_url: { type: "string", description: "GitHub URL of the lab repository" },
+      },
+      required: ["repo_url"],
+    },
+  },
+  {
     name: "deploy_lab",
     description: "Clone, configure, provision, and deploy a Build lab to Azure",
     inputSchema: {
@@ -97,6 +108,10 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       break;
     case "analyze_lab":
       action = "analyze";
+      psArgs = `-RepoUrl "${args.repo_url}"`;
+      break;
+    case "prepare_lab":
+      action = "prepare";
       psArgs = `-RepoUrl "${args.repo_url}"`;
       break;
     case "deploy_lab":

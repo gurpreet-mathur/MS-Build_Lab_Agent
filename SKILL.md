@@ -17,6 +17,7 @@ Activate when the user:
 |--------|-------------|
 | `doctor` | Validate all prerequisites for a team member |
 | `analyze` | Inspect a lab repo and report requirements |
+| `prepare` | Check deployment readiness and provide guided remediation |
 | `deploy` | Clone, configure, provision, and deploy a lab |
 | `destroy` | Tear down all lab resources (requires confirmation) |
 | `list` | Show all tracked lab deployments |
@@ -30,6 +31,9 @@ Activate when the user:
 
 # Analyze a lab before deploying
 .\core\lab-manager.ps1 -Action analyze -RepoUrl "https://github.com/microsoft/Build26-LAB520-..."
+
+# Check readiness and get remediation guidance
+.\core\lab-manager.ps1 -Action prepare -RepoUrl "https://github.com/microsoft/Build26-LAB501-..."
 
 # Deploy a lab
 .\core\lab-manager.ps1 -Action deploy -RepoUrl "https://github.com/microsoft/Build26-LAB520-..."

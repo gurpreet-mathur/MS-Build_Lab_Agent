@@ -36,7 +36,7 @@
 #>
 
 param(
-    [Parameter(Mandatory)][ValidateSet("doctor","analyze","deploy","destroy","list","status")]
+    [Parameter(Mandatory)][ValidateSet("doctor","analyze","prepare","deploy","destroy","list","status")]
     [string]$Action,
     
     [string]$RepoUrl,
@@ -314,6 +314,171 @@ function Invoke-Analyze {
 }
 
 # ============================================================================
+# PREPARE — Guide user to make a lab repo deployment-ready
+# ============================================================================
+
+function Invoke-Prepare {
+    if (-not $RepoUrl) { throw "RepoUrl is required for prepare" }
+    
+    $labCode = Get-LabCode $RepoUrl
+    Write-Host "`n🔧 Preparing $labCode for deployment`n" -ForegroundColor Cyan
+    
+    $tempDir = Join-Path $env:TEMP "lab-prepare-$labCode"
+    if (Test-Path $tempDir) { Remove-Item -Recurse -Force $tempDir }
+    
+    Write-Host "  Cloning repository..."
+    git clone --depth 1 $RepoUrl $tempDir 2>&1 | Out-Null
+    
+    $issues = @()
+    $fixes = @()
+    
+    # Check 1: azure.yaml
+    $azdPath = Find-AzureYaml $tempDir
+    if (-not $azdPath) {
+        $issues += @{ id = "no-azure-yaml"; severity = "critical"; message = "No azure.yaml found — required for azd deployment" }
+        $fixes += @{
+            id = "no-azure-yaml"
+            action = "Create azure.yaml in the repo root"
+            guidance = @"
+  Run this command in the repo root:
+    azd init
+  
+  Or create azure.yaml manually based on your app type:
+  - Python Flask/FastAPI on Container Apps:
+      services:
+        web:
+          project: ./src
+          host: containerapp
+          language: python
+  - Node.js on App Service:
+      services:
+        web:
+          project: ./src  
+          host: appservice
+          language: js
+  - Hosted AI Agent (Foundry):
+      services:
+        agent:
+          project: ./src
+          host: azure.ai.agent
+          language: docker
+"@
+        }
+    }
+    
+    # Check 2: infra/ directory
+    $hasInfra = Test-Path (Join-Path $tempDir "infra")
+    if ($azdPath) { $hasInfra = $hasInfra -or (Test-Path (Join-Path $azdPath "infra")) }
+    if (-not $hasInfra) {
+        $issues += @{ id = "no-infra"; severity = "critical"; message = "No infra/ directory found — Bicep/Terraform templates needed" }
+        $fixes += @{
+            id = "no-infra"
+            action = "Create infra/ with Bicep templates"
+            guidance = @"
+  Create infra/main.bicep with required resources. Common patterns:
+  - AI Agent labs: Foundry Account + Project + Model Deployment + ACR
+  - Web App labs: Container Apps + Cosmos DB / SQL
+  - Data labs: Fabric + Foundry + Storage
+  
+  Quick start: azd init --template <similar-template>
+  Browse templates: azd template list
+"@
+        }
+    }
+    
+    # Check 3: Docker
+    $hasDockerfile = (Get-ChildItem $tempDir -Recurse -Filter "Dockerfile" | Measure-Object).Count -gt 0
+    if ($hasDockerfile) {
+        # Check if Docker is running
+        $dockerRunning = $false
+        try {
+            $dockerVer = docker version --format '{{.Server.Version}}' 2>$null
+            if ($dockerVer) { $dockerRunning = $true }
+        } catch {}
+        
+        if (-not $dockerRunning) {
+            $issues += @{ id = "docker-not-running"; severity = "warning"; message = "Dockerfile found but Docker Desktop is not running" }
+            $fixes += @{
+                id = "docker-not-running"
+                action = "Start Docker Desktop or install it"
+                guidance = @"
+  This lab uses Docker containers. You need Docker Desktop running:
+  
+  Install:  winget install Docker.DockerDesktop
+  Start:    Start Docker Desktop from Start Menu
+  Verify:   docker version
+  
+  Alternative: Use azd's remote build (no local Docker):
+    In azure.yaml, set:
+      services:
+        web:
+          docker:
+            remoteBuild: true
+"@
+            }
+        } else {
+            Write-Host "  ✓ Docker is running" -ForegroundColor Green
+        }
+    }
+    
+    # Check 4: Environment variables
+    $envSample = Get-ChildItem $tempDir -Recurse -Filter ".env.sample" | Select-Object -First 1
+    if (-not $envSample) { $envSample = Get-ChildItem $tempDir -Recurse -Filter ".env.example" | Select-Object -First 1 }
+    if ($envSample) {
+        $envVars = Get-Content $envSample.FullName | Where-Object { $_ -match "^[A-Z_]+=.*" } | ForEach-Object { ($_ -split "=")[0] }
+        Write-Host "  ℹ️  Required environment variables: $($envVars -join ', ')" -ForegroundColor Yellow
+    }
+    
+    # Check 5: Requirements/Dependencies
+    $hasReqs = Test-Path (Join-Path $tempDir "src" "requirements.txt")
+    $hasPackageJson = (Get-ChildItem $tempDir -Recurse -Filter "package.json" -Depth 2 | Measure-Object).Count -gt 0
+    $hasCsproj = (Get-ChildItem $tempDir -Recurse -Filter "*.csproj" -Depth 2 | Measure-Object).Count -gt 0
+    
+    $language = if ($hasReqs) { "Python" } elseif ($hasPackageJson) { "Node.js" } elseif ($hasCsproj) { ".NET" } else { "Unknown" }
+    Write-Host "  ℹ️  Detected language: $language"
+    
+    # Check 6: Hosted agents (needs ENABLE_CAPABILITY_HOST)
+    $azdContent = ""
+    if ($azdPath) { $azdContent = Get-Content (Join-Path $azdPath "azure.yaml") -Raw -ErrorAction SilentlyContinue }
+    if ($azdContent -match "azure\.ai\.agent|host:\s*azure") {
+        Write-Host "  ℹ️  This lab uses Hosted Agents — requires:" -ForegroundColor Yellow
+        Write-Host "        ENABLE_CAPABILITY_HOST=true"
+        Write-Host "        ENABLE_HOSTED_AGENTS=true"
+    }
+    
+    # Print results
+    Write-Host ""
+    if ($issues.Count -eq 0) {
+        Write-Host "  ✅ Lab is deployment-ready! Run:" -ForegroundColor Green
+        Write-Host "     .\core\lab-manager.ps1 -Action deploy -RepoUrl '$RepoUrl'"
+    } else {
+        Write-Host "  ⚠️  $($issues.Count) issue(s) found:" -ForegroundColor Yellow
+        Write-Host ""
+        foreach ($fix in $fixes) {
+            $sev = ($issues | Where-Object { $_.id -eq $fix.id }).severity
+            $icon = if ($sev -eq "critical") { "❌" } else { "⚠️" }
+            Write-Host "  $icon $($fix.action)" -ForegroundColor $(if ($sev -eq "critical") { "Red" } else { "Yellow" })
+            Write-Host "$($fix.guidance)" -ForegroundColor Gray
+            Write-Host ""
+        }
+    }
+    
+    # Cleanup
+    Remove-Item -Recurse -Force $tempDir -ErrorAction SilentlyContinue
+    
+    return @{ 
+        lab_code = $labCode
+        issues_count = $issues.Count
+        issues = $issues
+        fixes = $fixes
+        language = $language
+        has_azure_yaml = $null -ne $azdPath
+        has_infra = $hasInfra
+        has_dockerfile = $hasDockerfile
+    } | ConvertTo-Json -Depth 4
+}
+
+# ============================================================================
 # DEPLOY
 # ============================================================================
 
@@ -534,6 +699,7 @@ function Invoke-Status {
 switch ($Action) {
     "doctor"  { Invoke-Doctor }
     "analyze" { Invoke-Analyze }
+    "prepare" { Invoke-Prepare }
     "deploy"  { Invoke-Deploy }
     "destroy" { Invoke-Destroy }
     "list"    { Invoke-List }
