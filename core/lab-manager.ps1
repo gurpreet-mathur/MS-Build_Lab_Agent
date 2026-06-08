@@ -60,9 +60,14 @@ function Write-Warn($msg) { Write-Status "⚠" $msg -ForegroundColor Yellow }
 
 function Get-Registry {
     if (Test-Path $RegistryPath) {
-        return Get-Content $RegistryPath | ConvertFrom-Json
+        $data = Get-Content $RegistryPath -Raw | ConvertFrom-Json
+        # Ensure deployments is an array
+        if (-not $data.deployments) {
+            $data | Add-Member -NotePropertyName "deployments" -NotePropertyValue @() -Force
+        }
+        return $data
     }
-    return @{ deployments = @() }
+    return [PSCustomObject]@{ deployments = @() }
 }
 
 function Save-Registry($registry) {
@@ -339,7 +344,13 @@ function Invoke-Deploy {
     Write-Host "  Initializing azd environment '$envName'..."
     azd init -e $envName --no-prompt 2>&1 | Out-Null
     
+    # Get current subscription from az CLI
+    $subId = az account show --query id -o tsv 2>$null
+    if (-not $subId) { throw "Not logged in to Azure. Run 'az login' first." }
+    Write-Host "  Using subscription: $subId"
+    
     # Set base config
+    azd env set AZURE_SUBSCRIPTION_ID $subId -e $envName 2>&1 | Out-Null
     azd env set AZURE_LOCATION $Location -e $envName 2>&1 | Out-Null
     azd env set AZURE_PRINCIPAL_TYPE User -e $envName 2>&1 | Out-Null
     
@@ -352,10 +363,32 @@ function Invoke-Deploy {
         }
     }
     
-    # Deploy
-    Write-Host "  Running azd up (this may take 5-15 minutes)..."
+    # Deploy in two phases: provision then deploy (allows fixing env between)
+    Write-Host "  Provisioning infrastructure..."
     $startTime = Get-Date
-    $result = azd up -e $envName --no-prompt 2>&1
+    $provResult = azd provision -e $envName --no-prompt 2>&1
+    $provSuccess = $LASTEXITCODE -eq 0
+    
+    if (-not $provSuccess) {
+        $duration = (Get-Date) - $startTime
+        Write-Host "`n  ❌ Provisioning failed:`n" -ForegroundColor Red
+        $provResult | Select-Object -Last 5 | ForEach-Object { Write-Host "  $_" }
+        return @{ success = $false; lab_code = $labCode; env_name = $envName; duration = [int]$duration.TotalSeconds; error = "provision_failed" } | ConvertTo-Json
+    }
+    
+    # Fix common env var issues after provision
+    $projectEndpoint = azd env get-value AZURE_AI_PROJECT_ENDPOINT -e $envName 2>$null
+    if ($projectEndpoint) {
+        $existingFoundry = azd env get-value FOUNDRY_PROJECT_ENDPOINT -e $envName 2>$null
+        if (-not $existingFoundry) {
+            Write-Host "  Setting FOUNDRY_PROJECT_ENDPOINT..."
+            azd env set FOUNDRY_PROJECT_ENDPOINT $projectEndpoint -e $envName 2>&1 | Out-Null
+        }
+    }
+    
+    # Now deploy
+    Write-Host "  Deploying application..."
+    $result = azd deploy -e $envName --no-prompt 2>&1
     $duration = (Get-Date) - $startTime
     
     $success = $LASTEXITCODE -eq 0
@@ -372,7 +405,7 @@ function Invoke-Deploy {
         duration_seconds = [int]$duration.TotalSeconds
         status = if ($success) { "deployed" } else { "partial" }
     }
-    $registry.deployments += $deployment
+    $registry.deployments = @($registry.deployments) + @($deployment)
     Save-Registry $registry
     
     if ($success) {
