@@ -14,7 +14,7 @@
 # CONFIGURATION
 # ============================================================================
 
-$script:TemplatesDir = Join-Path $PSScriptRoot "templates"
+$script:TemplatesDir = Join-Path (Split-Path $PSScriptRoot -Parent) "assets\templates"
 
 # AVM Module Registry (Bicep public registry references)
 $script:AvmPatternModules = @{

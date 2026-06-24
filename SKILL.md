@@ -1,3 +1,11 @@
+---
+name: lab-lifecycle
+description: Deploy, manage, and destroy Microsoft Build & Ignite hands-on lab environments on Azure with one command.
+authors:
+  - Gurpreet Mathur (STU)
+version: 1.0.0
+---
+
 # Lab Lifecycle Skill
 
 > Deploy, manage, and destroy Microsoft Build & Ignite labs with one command.
@@ -36,25 +44,25 @@ Activate when the user:
 
 ```powershell
 # Check prerequisites
-.\core\lab-manager.ps1 -Action doctor
+.\scripts\lab-manager.ps1 -Action doctor
 
 # Analyze a lab before deploying
-.\core\lab-manager.ps1 -Action analyze -RepoUrl "https://github.com/microsoft/Build26-LAB520-..."
+.\scripts\lab-manager.ps1 -Action analyze -RepoUrl "https://github.com/microsoft/Build26-LAB520-..."
 
 # Break a lab into modules/chapters (with per-module commands + verification steps)
-.\core\lab-manager.ps1 -Action outline -RepoUrl "https://github.com/microsoft/Build26-LAB520-..."
+.\scripts\lab-manager.ps1 -Action outline -RepoUrl "https://github.com/microsoft/Build26-LAB520-..."
 
 # Check readiness and get remediation guidance
-.\core\lab-manager.ps1 -Action prepare -RepoUrl "https://github.com/microsoft/Build26-LAB501-..."
+.\scripts\lab-manager.ps1 -Action prepare -RepoUrl "https://github.com/microsoft/Build26-LAB501-..."
 
 # Deploy a lab
-.\core\lab-manager.ps1 -Action deploy -RepoUrl "https://github.com/microsoft/Build26-LAB520-..."
+.\scripts\lab-manager.ps1 -Action deploy -RepoUrl "https://github.com/microsoft/Build26-LAB520-..."
 
 # Check status
-.\core\lab-manager.ps1 -Action status -RepoUrl "https://github.com/microsoft/Build26-LAB520-..."
+.\scripts\lab-manager.ps1 -Action status -RepoUrl "https://github.com/microsoft/Build26-LAB520-..."
 
 # Destroy when done
-.\core\lab-manager.ps1 -Action destroy -RepoUrl "https://github.com/microsoft/Build26-LAB520-..."
+.\scripts\lab-manager.ps1 -Action destroy -RepoUrl "https://github.com/microsoft/Build26-LAB520-..."
 ```
 
 ## Supported labs
@@ -128,3 +136,4 @@ agent) drive the interactive loop and the verification gates** — `outline`,
   `azd up`/`deploy`. Map "deploy this module" to the appropriate `deploy` call
   rather than inventing per-module infra commands.
 - **Keep destroy gated.** Never tear down mid-walkthrough without asking.
+

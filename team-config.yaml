@@ -62,7 +62,7 @@ labs:
   # The engine auto-detects the "Ignite" event from the repo URL and auto-enables
   # hosted-agent capability when a lab uses Foundry agents. Replace the template
   # repo URLs below with the actual Ignite lab repositories, then deploy with:
-  #   .\core\lab-manager.ps1 -Action deploy -RepoUrl "<ignite-lab-url>"
+  #   .\scripts\lab-manager.ps1 -Action deploy -RepoUrl "<ignite-lab-url>"
   #
   # IGNLAB100:  →  key by the LABnnn code so env_overrides are matched:
   # LAB100:
@@ -73,3 +73,4 @@ labs:
   #   azure_yaml_path: "."
   #   env_overrides: {}
   #   status: "untested"
+

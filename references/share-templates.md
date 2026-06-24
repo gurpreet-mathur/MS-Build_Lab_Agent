@@ -12,8 +12,8 @@
 ```
 git clone https://github.com/msbl26/lab-lifecycle-skill.git
 cd lab-lifecycle-skill
-.\core\lab-manager.ps1 -Action doctor
-.\core\lab-manager.ps1 -Action deploy -RepoUrl "<any Build26-LABxxx repo URL>"
+.\scripts\lab-manager.ps1 -Action doctor
+.\scripts\lab-manager.ps1 -Action deploy -RepoUrl "<any Build26-LABxxx repo URL>"
 ```
 
 **What it does:**
@@ -53,8 +53,8 @@ I've built a reusable agent skill that automates deploying Microsoft Build and I
 
 **Get started (2 minutes):**
 1. Clone: `git clone https://github.com/msbl26/lab-lifecycle-skill.git`
-2. Validate: `.\core\lab-manager.ps1 -Action doctor`
-3. Deploy: `.\core\lab-manager.ps1 -Action deploy -RepoUrl "<lab-url>"`
+2. Validate: `.\scripts\lab-manager.ps1 -Action doctor`
+3. Deploy: `.\scripts\lab-manager.ps1 -Action deploy -RepoUrl "<lab-url>"`
 
 Full onboarding guide is in `ONBOARDING.md` in the repo.
 
@@ -65,3 +65,4 @@ Gurpreet Mathur
 CSA
 
 ---
+

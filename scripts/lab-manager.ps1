@@ -613,7 +613,7 @@ function Invoke-Prepare {
     Write-Host ""
     if ($issues.Count -eq 0) {
         Write-Host "  ✅ Lab is deployment-ready! Run:" -ForegroundColor Green
-        Write-Host "     .\core\lab-manager.ps1 -Action deploy -RepoUrl '$RepoUrl'"
+        Write-Host "     .\scripts\lab-manager.ps1 -Action deploy -RepoUrl '$RepoUrl'"
     } else {
         Write-Host "  ⚠️  $($issues.Count) issue(s) found:" -ForegroundColor Yellow
         Write-Host ""
@@ -1128,3 +1128,4 @@ switch ($Action) {
     "list"     { Invoke-List }
     "status"   { Invoke-Status }
 }
+

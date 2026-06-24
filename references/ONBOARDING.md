@@ -23,10 +23,10 @@ git clone https://github.com/msbl26/lab-lifecycle-skill.git
 cd lab-lifecycle-skill
 
 # 2. Validate your environment
-.\core\lab-manager.ps1 -Action doctor
+.\scripts\lab-manager.ps1 -Action doctor
 
 # 3. You're ready! Deploy any lab:
-.\core\lab-manager.ps1 -Action deploy -RepoUrl "https://github.com/microsoft/Build26-LAB520-get-started-with-models-in-microsoft-foundry-to-build-ai-apps.git"
+.\scripts\lab-manager.ps1 -Action deploy -RepoUrl "https://github.com/microsoft/Build26-LAB520-get-started-with-models-in-microsoft-foundry-to-build-ai-apps.git"
 ```
 
 ---
@@ -35,15 +35,15 @@ cd lab-lifecycle-skill
 
 | Action | What It Does | Example |
 |--------|--------------|---------|
-| `doctor` | Validates prerequisites | `.\core\lab-manager.ps1 -Action doctor` |
-| `analyze` | Inspects a lab repo | `.\core\lab-manager.ps1 -Action analyze -RepoUrl <url>` |
-| `generate` | Auto-creates IaC for labs missing infra | `.\core\lab-manager.ps1 -Action generate -RepoUrl <url>` |
-| `prepare` | Checks deployment readiness | `.\core\lab-manager.ps1 -Action prepare -RepoUrl <url>` |
-| `outline` | Breaks lab into step-by-step modules | `.\core\lab-manager.ps1 -Action outline -RepoUrl <url>` |
-| `deploy` | Full end-to-end deployment | `.\core\lab-manager.ps1 -Action deploy -RepoUrl <url>` |
-| `destroy` | Tears down all resources | `.\core\lab-manager.ps1 -Action destroy -RepoUrl <url>` |
-| `list` | Shows all tracked deployments | `.\core\lab-manager.ps1 -Action list` |
-| `status` | Checks a deployed lab's health | `.\core\lab-manager.ps1 -Action status -RepoUrl <url>` |
+| `doctor` | Validates prerequisites | `.\scripts\lab-manager.ps1 -Action doctor` |
+| `analyze` | Inspects a lab repo | `.\scripts\lab-manager.ps1 -Action analyze -RepoUrl <url>` |
+| `generate` | Auto-creates IaC for labs missing infra | `.\scripts\lab-manager.ps1 -Action generate -RepoUrl <url>` |
+| `prepare` | Checks deployment readiness | `.\scripts\lab-manager.ps1 -Action prepare -RepoUrl <url>` |
+| `outline` | Breaks lab into step-by-step modules | `.\scripts\lab-manager.ps1 -Action outline -RepoUrl <url>` |
+| `deploy` | Full end-to-end deployment | `.\scripts\lab-manager.ps1 -Action deploy -RepoUrl <url>` |
+| `destroy` | Tears down all resources | `.\scripts\lab-manager.ps1 -Action destroy -RepoUrl <url>` |
+| `list` | Shows all tracked deployments | `.\scripts\lab-manager.ps1 -Action list` |
+| `status` | Checks a deployed lab's health | `.\scripts\lab-manager.ps1 -Action status -RepoUrl <url>` |
 
 ---
 
@@ -155,7 +155,7 @@ labs:
 
 ```powershell
 # Clean up when done
-.\core\lab-manager.ps1 -Action destroy -RepoUrl <url>
+.\scripts\lab-manager.ps1 -Action destroy -RepoUrl <url>
 ```
 
 ---
@@ -176,3 +176,4 @@ labs:
 **Skill Owner:** Gurpreet Mathur (CSA)  
 **Repo:** https://github.com/msbl26/lab-lifecycle-skill  
 **Registry:** https://glowing-adventure-mvqrg5p.pages.github.io/registry/index.html
+

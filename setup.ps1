@@ -227,13 +227,14 @@ Write-Host "━━━━━━━━━━━━━━━━━━━━━━�
 Write-Host ""
 Write-Host "  📖 Usage:" -ForegroundColor White
 Write-Host "     cd $InstallDir"
-Write-Host "     .\core\lab-manager.ps1 -Action deploy -RepoUrl ""<lab-url>"""
+Write-Host "     .\scripts\lab-manager.ps1 -Action deploy -RepoUrl ""<lab-url>"""
 Write-Host ""
 Write-Host "  🔥 Try it now:" -ForegroundColor White
-Write-Host "     .\core\lab-manager.ps1 -Action analyze -RepoUrl ""https://github.com/microsoft/Build26-LAB520-get-started-with-models-in-microsoft-foundry-to-build-ai-apps.git"""
+Write-Host "     .\scripts\lab-manager.ps1 -Action analyze -RepoUrl ""https://github.com/microsoft/Build26-LAB520-get-started-with-models-in-microsoft-foundry-to-build-ai-apps.git"""
 Write-Host ""
 Write-Host "  🤖 With Copilot CLI (from this directory):" -ForegroundColor White
 Write-Host "     Just ask: ""Deploy LAB520 for my demo"""
 Write-Host ""
 Write-Host "  📋 Full guide: ONBOARDING.md" -ForegroundColor White
 Write-Host ""
+

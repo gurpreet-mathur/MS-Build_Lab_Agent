@@ -12,24 +12,24 @@ git clone https://github.com/msbl26/lab-lifecycle-skill.git
 cd lab-lifecycle-skill
 
 # 2. Check your environment
-.\core\lab-manager.ps1 -Action doctor
+.\scripts\lab-manager.ps1 -Action doctor
 
 # 3. (Optional) Outline the lab into modules for a guided, verify-as-you-go demo
-.\core\lab-manager.ps1 -Action outline -RepoUrl "https://github.com/microsoft/Build26-LAB520-get-started-with-models-in-microsoft-foundry-to-build-ai-apps"
+.\scripts\lab-manager.ps1 -Action outline -RepoUrl "https://github.com/microsoft/Build26-LAB520-get-started-with-models-in-microsoft-foundry-to-build-ai-apps"
 
 # 4. Deploy a lab (or run it module-by-module — see "Guided walkthrough" below)
-.\core\lab-manager.ps1 -Action deploy -RepoUrl "https://github.com/microsoft/Build26-LAB520-get-started-with-models-in-microsoft-foundry-to-build-ai-apps"
+.\scripts\lab-manager.ps1 -Action deploy -RepoUrl "https://github.com/microsoft/Build26-LAB520-get-started-with-models-in-microsoft-foundry-to-build-ai-apps"
 
 # 4. Test it
 # (The deploy output shows how to invoke the agent)
 
 # 5. Destroy when done
-.\core\lab-manager.ps1 -Action destroy -RepoUrl "https://github.com/microsoft/Build26-LAB520-get-started-with-models-in-microsoft-foundry-to-build-ai-apps"
+.\scripts\lab-manager.ps1 -Action destroy -RepoUrl "https://github.com/microsoft/Build26-LAB520-get-started-with-models-in-microsoft-foundry-to-build-ai-apps"
 ```
 
 ## 📋 Prerequisites
 
-Run `.\core\lab-manager.ps1 -Action doctor` to validate. Requirements:
+Run `.\scripts\lab-manager.ps1 -Action doctor` to validate. Requirements:
 
 | Tool | Version | Install |
 |------|---------|---------|
@@ -76,12 +76,17 @@ labs:
 
 ```
 lab-lifecycle-skill/
-├── SKILL.md                  # Copilot CLI auto-detects this
-├── README.md                 # This file
-├── team-config.yaml          # Team defaults (customize per team)
-├── core/
-│   └── lab-manager.ps1       # Core engine (all actions)
-├── mcp-server/
+├── SKILL.md                  # Required – frontmatter + instructions
+├── scripts/                  # Executable code agents can run
+│   ├── lab-manager.ps1       # Core engine (all 9 actions)
+│   └── avm-composer.ps1     # AVM-powered IaC generator
+├── references/               # Reference documents loaded on demand
+│   ├── ONBOARDING.md        # Quick-start guide
+│   ├── build-2026-labs.md   # Lab catalog
+│   └── share-templates.md   # Teams/email templates
+├── assets/                   # Templates and static resources
+│   └── templates/           # Bicep templates (AVM modules)
+├── mcp-server/               # MCP Server integration
 │   ├── package.json
 │   └── src/index.js          # MCP Server (6 tools)
 └── .vscode/
@@ -118,7 +123,7 @@ Add to your `.vscode/mcp.json`:
 ### Option 3: Direct PowerShell
 
 ```powershell
-.\core\lab-manager.ps1 -Action <action> -RepoUrl <url> [-EnvName <name>] [-Location <region>]
+.\scripts\lab-manager.ps1 -Action <action> -RepoUrl <url> [-EnvName <name>] [-Location <region>]
 ```
 
 ## 🧭 Guided Walkthrough (module-by-module)
@@ -142,7 +147,7 @@ The skill will:
 You can also get the raw structure directly:
 
 ```powershell
-.\core\lab-manager.ps1 -Action outline -RepoUrl "https://github.com/microsoft/Build26-LAB540-..."
+.\scripts\lab-manager.ps1 -Action outline -RepoUrl "https://github.com/microsoft/Build26-LAB540-..."
 ```
 
 ## 📊 Supported Labs
@@ -185,6 +190,7 @@ Ignite labs to `team-config.yaml` to share them with your team.
 
 ## 🤝 Contributing
 
-1. Test a new lab: `.\core\lab-manager.ps1 -Action analyze -RepoUrl <new-lab-url>`
+1. Test a new lab: `.\scripts\lab-manager.ps1 -Action analyze -RepoUrl <new-lab-url>`
 2. If it works, add it to `team-config.yaml`
 3. Submit a PR with your findings
+
