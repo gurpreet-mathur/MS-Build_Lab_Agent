@@ -47,8 +47,19 @@ const TOOLS = [
     },
   },
   {
+    name: "outline_lab",
+    description: "Break a lab's instructions into ordered modules/chapters. Returns each module's title, kind (deploy/configure/verify/cleanup), runnable commands, and the manual verification steps a presenter must perform by hand. Use this to drive a guided, module-by-module walkthrough with verification gates between modules.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        repo_url: { type: "string", description: "GitHub URL of the lab repository" },
+      },
+      required: ["repo_url"],
+    },
+  },
+  {
     name: "deploy_lab",
-    description: "Clone, configure, provision, and deploy a Build lab to Azure",
+    description: "Clone, configure, provision, and deploy a Build or Ignite lab to Azure (event auto-detected from the repo URL)",
     inputSchema: {
       type: "object",
       properties: {
@@ -112,6 +123,10 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       break;
     case "prepare_lab":
       action = "prepare";
+      psArgs = `-RepoUrl "${args.repo_url}"`;
+      break;
+    case "outline_lab":
+      action = "outline";
       psArgs = `-RepoUrl "${args.repo_url}"`;
       break;
     case "deploy_lab":

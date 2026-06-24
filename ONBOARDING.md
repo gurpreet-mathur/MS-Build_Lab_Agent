@@ -49,6 +49,24 @@ cd lab-lifecycle-skill
 
 ## 🤖 Using with Copilot CLI
 
+### Install the Build26 Plugin (recommended)
+
+The **microsoft-events** plugin gives Copilot CLI awareness of Build/Ignite sessions, schedules, and lab metadata. Install it once:
+
+```
+# In Copilot CLI:
+/plugin install microsoft/Build-CLI
+```
+
+Or step-by-step:
+1. Open Copilot CLI (`copilot` in terminal)
+2. Type `/plugin`
+3. Select "Install a plugin"
+4. Enter: `microsoft/Build-CLI`
+5. Confirm
+
+### Using the Lab Lifecycle Skill
+
 If you're inside the `lab-lifecycle-skill/` directory with Copilot CLI active, just ask in natural language:
 
 - *"Deploy LAB520 for my demo"*

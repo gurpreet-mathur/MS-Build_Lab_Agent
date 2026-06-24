@@ -141,11 +141,44 @@ if (-not $account) {
 Write-Host "  ✓ Logged in: $account" -ForegroundColor Green
 
 # ============================================================================
-# STEP 5: Configure MCP (optional)
+# STEP 5: Install Build26 Plugin (Copilot CLI)
+# ============================================================================
+
+Write-Host "`n🔌 Step 5: Copilot CLI Build26 Plugin...`n" -ForegroundColor Yellow
+
+$configPath = Join-Path $env:USERPROFILE ".copilot" "config.json"
+$hasBuildPlugin = $false
+if (Test-Path $configPath) {
+    $config = Get-Content $configPath -Raw | ConvertFrom-Json -ErrorAction SilentlyContinue
+    if ($config.installedPlugins.name -contains "microsoft-events") {
+        $hasBuildPlugin = $true
+    }
+}
+
+if ($hasBuildPlugin) {
+    Write-Host "  ✓ microsoft-events (Build CLI) plugin already installed" -ForegroundColor Green
+} else {
+    Write-Host "  The Build26 plugin adds session discovery, schedule planning, and lab info."
+    Write-Host "  To install, run in Copilot CLI:" -ForegroundColor White
+    Write-Host "     /plugin install microsoft/Build-CLI" -ForegroundColor Cyan
+    Write-Host ""
+    Write-Host "  Or install manually:" -ForegroundColor White
+    Write-Host "     1. Open Copilot CLI (type 'copilot' in terminal)"
+    Write-Host "     2. Run: /plugin"
+    Write-Host "     3. Select 'Install a plugin'"
+    Write-Host "     4. Enter: microsoft/Build-CLI"
+    Write-Host "     5. Confirm installation"
+    Write-Host ""
+    Write-Host "  ⚠️  This step requires Copilot CLI to be installed." -ForegroundColor Yellow
+    Write-Host "     Get it from: https://docs.github.com/copilot/how-tos/use-copilot-agents/use-copilot-cli" -ForegroundColor Yellow
+}
+
+# ============================================================================
+# STEP 6: Configure MCP (optional)
 # ============================================================================
 
 if (-not $SkipMcp) {
-    Write-Host "`n🔧 Step 5: VS Code MCP configuration...`n" -ForegroundColor Yellow
+    Write-Host "`n🔧 Step 6: VS Code MCP configuration...`n" -ForegroundColor Yellow
     
     $mcpPath = Join-Path $env:USERPROFILE ".vscode" "mcp.json"
     $mcpServerPath = (Join-Path $InstallDir "mcp-server" "src" "index.js") -replace '\\', '/'
@@ -179,7 +212,7 @@ if (-not $SkipMcp) {
 # STEP 6: Run doctor
 # ============================================================================
 
-Write-Host "`n🩺 Step 6: Final validation...`n" -ForegroundColor Yellow
+Write-Host "`n🩺 Step 7: Final validation...`n" -ForegroundColor Yellow
 
 & (Join-Path $InstallDir "core" "lab-manager.ps1") -Action doctor
 

@@ -1,6 +1,8 @@
 # Lab Lifecycle Skill
 
-> Deploy, manage, and destroy Microsoft Build 2026 labs with one command. Share with your team for repeatable demo environments.
+> Deploy, manage, and destroy Microsoft Build & Ignite labs with one command. Share with your team for repeatable demo environments.
+
+> **Event-agnostic:** the engine auto-detects the event (Build26, Ignite, …) from each repo URL, so the same commands work for any event's labs without code changes.
 
 ## 🚀 Quick Start
 
@@ -12,7 +14,10 @@ cd lab-lifecycle-skill
 # 2. Check your environment
 .\core\lab-manager.ps1 -Action doctor
 
-# 3. Deploy a lab
+# 3. (Optional) Outline the lab into modules for a guided, verify-as-you-go demo
+.\core\lab-manager.ps1 -Action outline -RepoUrl "https://github.com/microsoft/Build26-LAB520-get-started-with-models-in-microsoft-foundry-to-build-ai-apps"
+
+# 4. Deploy a lab (or run it module-by-module — see "Guided walkthrough" below)
 .\core\lab-manager.ps1 -Action deploy -RepoUrl "https://github.com/microsoft/Build26-LAB520-get-started-with-models-in-microsoft-foundry-to-build-ai-apps"
 
 # 4. Test it
@@ -78,7 +83,7 @@ lab-lifecycle-skill/
 │   └── lab-manager.ps1       # Core engine (all actions)
 ├── mcp-server/
 │   ├── package.json
-│   └── src/index.js          # MCP Server (5 tools)
+│   └── src/index.js          # MCP Server (6 tools)
 └── .vscode/
     └── mcp.json              # VS Code MCP integration
 ```
@@ -116,7 +121,33 @@ Add to your `.vscode/mcp.json`:
 .\core\lab-manager.ps1 -Action <action> -RepoUrl <url> [-EnvName <name>] [-Location <region>]
 ```
 
+## 🧭 Guided Walkthrough (module-by-module)
+
+Want to run a lab as a **live demo**, one chapter at a time, proving each step
+works before moving on? Ask the agent:
+
+> "Walk me through LAB540 module by module"
+
+The skill will:
+
+1. **Outline** the lab — parse its README/docs into ordered modules/chapters,
+   extracting each module's commands and the **manual verification steps** a
+   presenter must do by hand.
+2. **Run one module at a time** — deploy/perform that module's work.
+3. **Pause for verification** — present the manual checks (open the app, run the
+   agent, confirm the expected output) and wait for your confirmation.
+4. **Only advance once you confirm** the current module works. If something
+   fails, it helps you troubleshoot before continuing.
+
+You can also get the raw structure directly:
+
+```powershell
+.\core\lab-manager.ps1 -Action outline -RepoUrl "https://github.com/microsoft/Build26-LAB540-..."
+```
+
 ## 📊 Supported Labs
+
+### Microsoft Build 2026
 
 | Code | Title | Time | Docker | Status |
 |------|-------|------|--------|--------|
@@ -124,6 +155,14 @@ Add to your `.vscode/mcp.json`:
 | LAB540 | Observe & Protect Hosted Agents | ~10 min | Yes | ✅ Tested |
 | LAB511 | Postgres Agentic Apps (HorizonDB) | ~5 min | TBD | ⚠️ Untested |
 | LAB532 | Foundry IQ Knowledge | ~5 min | TBD | ⚠️ Untested |
+
+### Microsoft Ignite
+
+Ignite labs use the same lifecycle — pass the Ignite lab repo URL to any action.
+The event is auto-detected from the URL, clones are kept in an event-prefixed
+folder (e.g. `Ignite-LABxxx`) so they never collide with Build clones, and
+Foundry hosted-agent capability is enabled automatically when needed. Add tested
+Ignite labs to `team-config.yaml` to share them with your team.
 
 ## 🛡️ Troubleshooting
 

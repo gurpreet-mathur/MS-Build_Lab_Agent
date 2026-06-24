@@ -26,6 +26,7 @@ cd lab-lifecycle-skill
 **Works with:** Copilot CLI (auto-detected) | VS Code MCP | Direct PowerShell
 
 **Prerequisites:** Azure CLI, azd, Git, PowerShell 7+
+**Optional:** Copilot CLI + Build26 plugin (`/plugin install microsoft/Build-CLI`)
 
 📖 Full guide: See `ONBOARDING.md` in the repo
 
