@@ -1,11 +1,15 @@
 <#
 .SYNOPSIS
-    Lab Lifecycle Manager — deploy, manage, and destroy Microsoft Build labs.
+    Lab Lifecycle Manager — deploy, manage, and destroy Microsoft Build & Ignite labs.
 
 .DESCRIPTION
-    Core engine for the Lab Lifecycle Skill. Supports actions:
+    Core engine for the Lab Lifecycle Skill. Works with any event's lab repos
+    (e.g. Build26-LABxxx, Ignite-LABxxx) — the event is auto-detected from the
+    repo URL so the same skill serves multiple events. Supports actions:
     - doctor:  Validate all prerequisites
     - analyze: Inspect a lab repo and report requirements
+    - outline: Break a lab's instructions into ordered modules/chapters,
+               each with its commands and manual verification steps
     - deploy:  Clone, configure, provision, and deploy
     - destroy: Tear down all resources (requires confirmation)
     - list:    Show tracked deployments
@@ -36,7 +40,7 @@
 #>
 
 param(
-    [Parameter(Mandatory)][ValidateSet("doctor","analyze","prepare","deploy","destroy","list","status")]
+    [Parameter(Mandatory)][ValidateSet("doctor","analyze","prepare","outline","generate","deploy","destroy","list","status")]
     [string]$Action,
     
     [string]$RepoUrl,
@@ -81,6 +85,15 @@ function Get-LabCode($url) {
     return "UNKNOWN"
 }
 
+function Get-EventName($url) {
+    # Derive the event (e.g. Build26, Ignite, Ignite25) from the repo name so the
+    # same skill can manage labs from any event without hardcoding.
+    if (-not $url) { return "Lab" }
+    $repoName = (($url -replace '/$', '') -split '/' | Select-Object -Last 1) -replace '\.git$', ''
+    if ($repoName -match '^(.*?)[-_]LAB\d+') { return $Matches[1] }
+    return "Lab"
+}
+
 function Get-TeamConfig {
     if (Test-Path $ConfigFile) {
         # Simple YAML parsing for our flat structure
@@ -91,13 +104,40 @@ function Get-TeamConfig {
 }
 
 function Get-LabConfig($labCode) {
-    $config = Get-TeamConfig
-    if (-not $config) { return $null }
-    # Extract lab-specific env_overrides from team config
+    # Data-driven: read env_overrides for a lab code straight from team-config.yaml
+    # so adding Build OR Ignite labs never requires editing this script.
     $envOverrides = @{}
-    switch ($labCode) {
-        "LAB540" { $envOverrides = @{ ENABLE_CAPABILITY_HOST = "true"; ENABLE_HOSTED_AGENTS = "true" } }
-        "LAB520" { $envOverrides = @{} }
+    if (-not (Test-Path $ConfigFile)) { return $envOverrides }
+
+    $inLab = $false
+    $inOverrides = $false
+    $labIndent = -1
+
+    foreach ($line in (Get-Content $ConfigFile)) {
+        if ($line -match '^\s*#') { continue }
+
+        # A bare "key:" line (no inline value) — could be a lab code or a nested block.
+        if ($line -match '^(\s*)([A-Za-z0-9_]+):\s*$') {
+            $indent = $Matches[1].Length
+            $key = $Matches[2]
+            if ($key -eq $labCode) {
+                $inLab = $true; $labIndent = $indent; $inOverrides = $false; continue
+            } elseif ($inLab -and $indent -le $labIndent) {
+                $inLab = $false; $inOverrides = $false
+            }
+        }
+
+        if ($inLab) {
+            if ($line -match '^\s*env_overrides:\s*\{\s*\}\s*$') { $inOverrides = $false; continue }
+            if ($line -match '^\s*env_overrides:\s*$') { $inOverrides = $true; continue }
+            if ($inOverrides) {
+                if ($line -cmatch '^\s*([A-Z][A-Z0-9_]*):\s*"?([^"]*?)"?\s*$') {
+                    $envOverrides[$Matches[1]] = $Matches[2]
+                } elseif ($line -match '^\s*\S') {
+                    $inOverrides = $false
+                }
+            }
+        }
     }
     return $envOverrides
 }
@@ -113,6 +153,114 @@ function Find-AzureYaml($repoPath) {
     } | Select-Object -First 1
     
     return $subYaml
+}
+
+# ----------------------------------------------------------------------------
+# OUTLINE HELPERS — parse lab instructions into modules/chapters
+# ----------------------------------------------------------------------------
+
+function Get-MarkdownFiles($repoPath) {
+    # Collect lab instruction markdown, skipping noise dirs.
+    $exclude = @('node_modules', '.git', '.github', 'bin', 'obj', 'dist', '.venv', 'venv')
+    return Get-ChildItem $repoPath -Recurse -Filter *.md -File -ErrorAction SilentlyContinue | Where-Object {
+        $rel = $_.FullName.Substring($repoPath.Length)
+        $hit = $false
+        foreach ($e in $exclude) { if ($rel -match "[\\/]$([regex]::Escape($e))[\\/]") { $hit = $true; break } }
+        -not $hit
+    }
+}
+
+function Get-CommandsFromBody($body) {
+    # Pull runnable commands out of fenced code blocks.
+    $cmds = @()
+    $cmdLangs = @('bash','sh','shell','powershell','pwsh','ps1','azurecli','azurepowershell','console','cmd','bat','terminal','dotnetcli')
+    $toolRe = '^(az|azd|git|docker|kubectl|helm|terraform|bicep|npm|npx|pnpm|yarn|pip|pip3|python|python3|dotnet|func|gh|curl|wget|cd|mkdir|cp|mv|rm|export|set|\.\\|\./)'
+    $inFence = $false; $fenceLang = ''
+    foreach ($l in ($body -split "`r?`n")) {
+        if ($l -match '^\s*```+\s*([A-Za-z0-9_+#-]*)\s*$') {
+            if (-not $inFence) { $inFence = $true; $fenceLang = $Matches[1].ToLower() }
+            else { $inFence = $false; $fenceLang = '' }
+            continue
+        }
+        if (-not $inFence) { continue }
+        $explicit = $cmdLangs -contains $fenceLang
+        if (-not $explicit -and $fenceLang -ne '') { continue }  # skip e.g. json/yaml/python blocks
+        $t = $l.Trim()
+        if (-not $t) { continue }
+        if ($t -match '^(#|//|REM\b|>)') { continue }            # comments / output markers
+        $t = $t -replace '^\$\s+', '' -replace '^PS[^>]*>\s*', '' -replace '^C:\\[^>]*>\s*', ''
+        if ($explicit) { $cmds += $t }
+        elseif ($t -match $toolRe) { $cmds += $t }               # untagged block: keep only command-looking lines
+    }
+    return ,$cmds
+}
+
+function Get-VerificationFromBody($body) {
+    # Surface the manual "prove it works" steps a presenter must do by hand.
+    $kw = 'verify|confirm|you should (?:see|now|be able|get)|ensure|make sure|validate|check that|expected|navigate to|open .*(?:browser|portal|url)|test (?:the|that|your)|observe|notice that|you will see|response should'
+    $hits = @()
+    foreach ($line in ($body -split "`r?`n")) {
+        $t = ($line -replace '^\s*#{1,6}\s+', '' -replace '^\s*[-*+]\s+', '' -replace '^\s*\d+[.)]\s+', '').Trim()
+        if (-not $t) { continue }
+        if ($t -match "(?i)$kw") {
+            $t = ($t -replace '\*\*', '' -replace '`', '').Trim()
+            if ($t.Length -gt 220) { $t = $t.Substring(0,217) + '...' }
+            $hits += $t
+        }
+    }
+    return ,($hits | Select-Object -Unique -First 12)
+}
+
+function Get-ModuleKind($cmds, $verifications) {
+    $joined = ($cmds -join ' ')
+    # Deploy wins over cleanup: a deploy module may mention destroy/--purge in a
+    # troubleshooting note, but it's still fundamentally a deploy step.
+    if ($joined -match '(?i)\b(azd up|azd provision|azd deploy|az deployment|terraform apply|az containerapp|az webapp|az aks|bicep)\b') { return 'deploy' }
+    if ($joined -match '(?i)\b(azd down|az group delete|--purge|destroy)\b') { return 'cleanup' }
+    if (@($cmds).Count -gt 0) { return 'configure' }
+    if (@($verifications).Count -gt 0) { return 'verify' }
+    return 'reading'
+}
+
+function Get-HeadingTitle($text) {
+    foreach ($line in ($text -split "`r?`n")) {
+        if ($line -match '^\s*#{1,3}\s+(.+?)\s*#*\s*$') { return ($Matches[1] -replace '[`*]', '').Trim() }
+    }
+    return $null
+}
+
+function Split-BodyIntoModules($text) {
+    # Split a single instruction file into modules on chapter-like headings.
+    $modulePattern = '^(#{1,4})\s+((?:module|chapter|exercise|task|part|step|lab|section)\b[^\r\n]*)$'
+    $lines = $text -split "`r?`n"
+    $modules = @(); $current = $null; $buffer = $null
+    foreach ($line in $lines) {
+        if ($line -match "(?i)$modulePattern") {
+            if ($current) { $current.body = ($buffer -join "`n"); $modules += $current }
+            $title = ($Matches[2] -replace '[`*]', '').Trim()
+            $current = [ordered]@{ title = $title; body = '' }
+            $buffer = @()
+        } elseif ($current) {
+            $buffer += $line
+        }
+    }
+    if ($current) { $current.body = ($buffer -join "`n"); $modules += $current }
+
+    if (@($modules).Count -eq 0) {
+        # No chapter keywords — fall back to top-level '##' sections.
+        $current = $null; $buffer = $null
+        foreach ($line in $lines) {
+            if ($line -match '^##\s+(.+?)\s*#*\s*$') {
+                if ($current) { $current.body = ($buffer -join "`n"); $modules += $current }
+                $current = [ordered]@{ title = ($Matches[1] -replace '[`*]', '').Trim(); body = '' }
+                $buffer = @()
+            } elseif ($current) {
+                $buffer += $line
+            }
+        }
+        if ($current) { $current.body = ($buffer -join "`n"); $modules += $current }
+    }
+    return ,$modules
 }
 
 # ============================================================================
@@ -282,6 +430,7 @@ function Invoke-Analyze {
         has_azure_yaml = $null -ne $azdPath
         azure_yaml_path = if ($azdPath) { (Resolve-Path $azdPath -Relative) } else { $null }
         has_infra = Test-Path (Join-Path $tempDir "infra")
+        has_terraform = (Get-ChildItem $tempDir -Recurse -Filter "*.tf" -File -ErrorAction SilentlyContinue | Measure-Object).Count -gt 0
         has_dockerfile = (Get-ChildItem $tempDir -Recurse -Filter "Dockerfile" | Measure-Object).Count -gt 0
         is_deployable = $null -ne $azdPath
         env_overrides = Get-LabConfig $labCode
@@ -294,11 +443,17 @@ function Invoke-Analyze {
         $result.uses_hosted_agents = $yamlContent -match "azure\.ai\.agent|host:\s*azure"
     }
     
+    # Determine infra type
+    $infraType = if ($result.has_azure_yaml -and $result.has_infra) { '✅ Bicep (azd)' }
+                 elseif ($result.has_terraform) { '✅ Terraform (not azd)' }
+                 elseif ($result.has_infra) { '✅ Bicep' }
+                 else { '❌ Missing' }
+    
     # Output
     Write-Host "  Lab Code:        $($result.lab_code)"
-    Write-Host "  Deployable:      $(if ($result.is_deployable) { '✅ Yes' } else { '❌ No' })"
+    Write-Host "  Deployable:      $(if ($result.is_deployable) { '✅ Yes (azd)' } elseif ($result.has_terraform) { '⚠️ Terraform only' } else { '❌ No' })"
     Write-Host "  azure.yaml:      $(if ($result.has_azure_yaml) { $result.azure_yaml_path } else { 'Not found' })"
-    Write-Host "  Infrastructure:  $(if ($result.has_infra) { '✅ Bicep' } else { '❌ Missing' })"
+    Write-Host "  Infrastructure:  $infraType"
     Write-Host "  Docker:          $(if ($result.has_dockerfile) { '✅ Yes' } else { 'No' })"
     Write-Host "  Hosted Agents:   $(if ($result.uses_hosted_agents) { '✅ Yes (needs ENABLE_CAPABILITY_HOST=true)' } else { 'No' })"
     
@@ -389,15 +544,20 @@ function Invoke-Prepare {
     # Check 3: Docker
     $hasDockerfile = (Get-ChildItem $tempDir -Recurse -Filter "Dockerfile" | Measure-Object).Count -gt 0
     if ($hasDockerfile) {
-        # Check if Docker is running
-        $dockerRunning = $false
-        try {
-            $dockerVer = docker version --format '{{.Server.Version}}' 2>$null
-            if ($dockerVer) { $dockerRunning = $true }
-        } catch {}
+        # Check if remoteBuild is configured (no local Docker needed)
+        $azureYamlContent = Get-Content (Join-Path $tempDir "azure.yaml") -Raw -ErrorAction SilentlyContinue
+        $hasRemoteBuild = $azureYamlContent -match "remoteBuild:\s*true"
         
-        if (-not $dockerRunning) {
-            $issues += @{ id = "docker-not-running"; severity = "warning"; message = "Dockerfile found but Docker Desktop is not running" }
+        if (-not $hasRemoteBuild) {
+            # Check if Docker is running
+            $dockerRunning = $false
+            try {
+                $dockerVer = docker version --format '{{.Server.Version}}' 2>$null
+                if ($dockerVer) { $dockerRunning = $true }
+            } catch {}
+            
+            if (-not $dockerRunning) {
+                $issues += @{ id = "docker-not-running"; severity = "warning"; message = "Dockerfile found but Docker Desktop is not running" }
             $fixes += @{
                 id = "docker-not-running"
                 action = "Start Docker Desktop or install it"
@@ -418,6 +578,9 @@ function Invoke-Prepare {
             }
         } else {
             Write-Host "  ✓ Docker is running" -ForegroundColor Green
+        }
+        } else {
+            Write-Host "  ✓ remoteBuild enabled — no local Docker needed" -ForegroundColor Green
         }
     }
     
@@ -486,14 +649,15 @@ function Invoke-Deploy {
     if (-not $RepoUrl) { throw "RepoUrl is required for deploy" }
     
     $labCode = Get-LabCode $RepoUrl
+    $eventName = Get-EventName $RepoUrl
     $envName = if ($EnvName) { $EnvName } else { "$($labCode.ToLower())-$(Get-Date -Format 'MMdd')" }
     
-    Write-Host "`n🚀 Deploying $labCode as '$envName'`n" -ForegroundColor Cyan
+    Write-Host "`n🚀 Deploying $eventName $labCode as '$envName'`n" -ForegroundColor Cyan
     
     $env:PATH = "$env:LOCALAPPDATA\Programs\Azure Dev CLI;$env:PATH"
     
-    # Clone or find existing clone
-    $cloneDir = Join-Path $env:USERPROFILE "Build26-$labCode"
+    # Clone or find existing clone (event-prefixed so Build & Ignite labs never collide)
+    $cloneDir = Join-Path $env:USERPROFILE "$eventName-$labCode"
     if (-not (Test-Path $cloneDir)) {
         Write-Host "  Cloning repository..."
         git clone $RepoUrl $cloneDir 2>&1 | Out-Null
@@ -519,9 +683,19 @@ function Invoke-Deploy {
     azd env set AZURE_LOCATION $Location -e $envName 2>&1 | Out-Null
     azd env set AZURE_PRINCIPAL_TYPE User -e $envName 2>&1 | Out-Null
     
-    # Apply lab-specific overrides
+    # Apply lab-specific overrides (from team-config.yaml)
     $overrides = Get-LabConfig $labCode
-    if ($overrides) {
+    if (-not $overrides) { $overrides = @{} }
+
+    # Auto-enable hosted-agent capability when the lab uses Foundry hosted agents,
+    # so any event's agent labs work without explicit config.
+    $azureYaml = Get-Content (Join-Path $azdDir "azure.yaml") -Raw -ErrorAction SilentlyContinue
+    if ($azureYaml -match "azure\.ai\.agent|host:\s*azure") {
+        if (-not $overrides.ContainsKey("ENABLE_CAPABILITY_HOST")) { $overrides["ENABLE_CAPABILITY_HOST"] = "true" }
+        if (-not $overrides.ContainsKey("ENABLE_HOSTED_AGENTS")) { $overrides["ENABLE_HOSTED_AGENTS"] = "true" }
+    }
+
+    if ($overrides.Count -gt 0) {
         foreach ($kv in $overrides.GetEnumerator()) {
             Write-Host "  Setting $($kv.Key) = $($kv.Value)"
             azd env set $kv.Key $kv.Value -e $envName 2>&1 | Out-Null
@@ -535,21 +709,108 @@ function Invoke-Deploy {
     $provSuccess = $LASTEXITCODE -eq 0
     
     if (-not $provSuccess) {
-        $duration = (Get-Date) - $startTime
-        Write-Host "`n  ❌ Provisioning failed:`n" -ForegroundColor Red
-        $provResult | Select-Object -Last 5 | ForEach-Object { Write-Host "  $_" }
-        return @{ success = $false; lab_code = $labCode; env_name = $envName; duration = [int]$duration.TotalSeconds; error = "provision_failed" } | ConvertTo-Json
+        $errorText = $provResult -join "`n"
+        
+        # --- SELF-MITIGATION: Region-restricted resources ---
+        $regionRetried = $false
+        if ($errorText -match "LocationNotAvailableForResourceType.*?'([^']+)'.*?available.*?regions.*?is\s+'([^']+)'") {
+            $blockedResource = $Matches[1]
+            $availableRegions = $Matches[2] -split ',\s*'
+            
+            Write-Host "`n  ⚠️  Region conflict detected!" -ForegroundColor Yellow
+            Write-Host "     Resource: $blockedResource" -ForegroundColor Yellow
+            Write-Host "     Current region: $Location" -ForegroundColor Yellow
+            Write-Host "     Available regions: $($availableRegions -join ', ')" -ForegroundColor Yellow
+            
+            # Pick best alternate region (prefer common ones)
+            $preferredOrder = @('eastus2','swedencentral','westus2','centralus','westus3','australiaeast','northcentralus')
+            $alternateRegion = $null
+            foreach ($pref in $preferredOrder) {
+                if ($availableRegions -contains $pref -and $pref -ne $Location) {
+                    $alternateRegion = $pref; break
+                }
+            }
+            if (-not $alternateRegion) { $alternateRegion = $availableRegions | Where-Object { $_ -ne $Location } | Select-Object -First 1 }
+            
+            if ($alternateRegion) {
+                Write-Host "`n  🔄 Self-mitigating: Retrying with region '$alternateRegion'..." -ForegroundColor Cyan
+                
+                # Delete the RG if it was created in wrong region
+                $rgName = "rg-$envName"
+                $rgExists = az group exists --name $rgName 2>$null
+                if ($rgExists -eq 'true') {
+                    Write-Host "  🗑️  Deleting resource group '$rgName' (wrong region)..."
+                    az group delete --name $rgName --yes --no-wait 2>&1 | Out-Null
+                    Start-Sleep -Seconds 15
+                }
+                
+                # Update location and retry
+                azd env set AZURE_LOCATION $alternateRegion -e $envName 2>&1 | Out-Null
+                $Location = $alternateRegion
+                
+                Write-Host "  Provisioning in $alternateRegion..."
+                $provResult = azd provision -e $envName --no-prompt 2>&1
+                $provSuccess = $LASTEXITCODE -eq 0
+                $regionRetried = $true
+            }
+        }
+        
+        # --- SELF-MITIGATION: Name conflict (soft-deleted resource) ---
+        if (-not $provSuccess -and $errorText -match "(?i)(already exists|conflict|soft.?deleted)") {
+            if ($errorText -match "--purge") {
+                Write-Host "`n  🔄 Self-mitigating: Resource name conflict (soft-deleted). Purging..." -ForegroundColor Cyan
+                # Extract resource name if possible
+                if ($errorText -match "(?i)name\s+'([^']+)'.*?soft.?deleted") {
+                    $staleResource = $Matches[1]
+                    Write-Host "     Stale resource: $staleResource"
+                }
+                # Retry with purge hint — azd handles purge on retry
+                $provResult = azd provision -e $envName --no-prompt 2>&1
+                $provSuccess = $LASTEXITCODE -eq 0
+            }
+        }
+        
+        if (-not $provSuccess) {
+            $duration = (Get-Date) - $startTime
+            Write-Host "`n  ❌ Provisioning failed:`n" -ForegroundColor Red
+            $provResult | Select-Object -Last 5 | ForEach-Object { Write-Host "  $_" }
+            
+            # Register failed attempt so status/destroy can still find it
+            $registry = Get-Registry
+            $failedDeployment = @{
+                lab_code = $labCode
+                event = $eventName
+                env_name = $envName
+                repo_url = $RepoUrl
+                location = $Location
+                azd_dir = $azdDir
+                failed_at = (Get-Date -Format "o")
+                duration_seconds = [int]$duration.TotalSeconds
+                status = "failed"
+                error_summary = ($provResult | Select-Object -Last 2) -join " "
+                mitigation_attempted = $regionRetried
+            }
+            $registry.deployments = @($registry.deployments) + @($failedDeployment)
+            Save-Registry $registry
+            
+            return @{ success = $false; lab_code = $labCode; env_name = $envName; duration = [int]$duration.TotalSeconds; error = "provision_failed"; mitigation_attempted = $regionRetried; location = $Location } | ConvertTo-Json
+        } else {
+            Write-Host "  ✅ Self-mitigation successful! Provisioned in $Location" -ForegroundColor Green
+        }
     }
     
     # Register immediately after provision so destroy always works (even if deploy times out)
     $registry = Get-Registry
     $deployment = @{
         lab_code = $labCode
+        event = $eventName
         env_name = $envName
         repo_url = $RepoUrl
         location = $Location
         azd_dir = $azdDir
         provisioned_at = (Get-Date -Format "o")
+        deployed_at = ""
+        duration_seconds = 0
         status = "provisioned"
     }
     $registry.deployments = @($registry.deployments) + @($deployment)
@@ -600,19 +861,23 @@ function Invoke-Destroy {
     if (-not $RepoUrl) { throw "RepoUrl is required for destroy" }
     
     $labCode = Get-LabCode $RepoUrl
+    $eventName = Get-EventName $RepoUrl
     
     # Find deployment in registry
     $registry = Get-Registry
-    $deployment = $registry.deployments | Where-Object { $_.lab_code -eq $labCode -and $_.status -in @("deployed", "partial", "provisioned") } | Select-Object -Last 1
+    $deployment = $registry.deployments | Where-Object {
+        $_.lab_code -eq $labCode -and $_.status -in @("deployed", "partial", "provisioned", "failed") -and
+        ((-not $_.event) -or ($_.event -eq $eventName))
+    } | Select-Object -Last 1
     
     if (-not $deployment) {
-        Write-Host "  ❌ No active deployment found for $labCode" -ForegroundColor Red
+        Write-Host "  ❌ No active deployment found for $eventName $labCode" -ForegroundColor Red
         return @{ success = $false; error = "No deployment found" } | ConvertTo-Json
     }
     
     $envName = if ($EnvName) { $EnvName } else { $deployment.env_name }
     
-    Write-Host "`n🗑️  Destroying $labCode (env: $envName)`n" -ForegroundColor Red
+    Write-Host "`n🗑️  Destroying $eventName $labCode (env: $envName)`n" -ForegroundColor Red
     
     if (-not $Force) {
         Write-Host "  ⚠️  This will PERMANENTLY DELETE all resources for $labCode!" -ForegroundColor Yellow
@@ -636,7 +901,14 @@ function Invoke-Destroy {
     
     if ($success) {
         # Update registry
-        $registry.deployments | Where-Object { $_.env_name -eq $envName } | ForEach-Object { $_.status = "destroyed"; $_.destroyed_at = (Get-Date -Format "o") }
+        $registry.deployments | Where-Object { $_.env_name -eq $envName } | ForEach-Object {
+            $_.status = "destroyed"
+            if ($_ | Get-Member -Name destroyed_at -MemberType NoteProperty) {
+                $_.destroyed_at = (Get-Date -Format "o")
+            } else {
+                $_ | Add-Member -NotePropertyName "destroyed_at" -NotePropertyValue (Get-Date -Format "o") -Force
+            }
+        }
         Save-Registry $registry
         Write-Host "`n  ✅ $labCode destroyed in $([int]$duration.TotalMinutes)m $($duration.Seconds)s`n" -ForegroundColor Green
     } else {
@@ -661,8 +933,9 @@ function Invoke-List {
     }
     
     $registry.deployments | ForEach-Object {
-        $statusIcon = switch ($_.status) { "deployed" { "🟢" }; "destroyed" { "⚫" }; "partial" { "🟡" }; default { "❓" } }
-        Write-Host "  $statusIcon $($_.lab_code) | env: $($_.env_name) | $($_.status) | $($_.deployed_at)"
+        $statusIcon = switch ($_.status) { "deployed" { "🟢" }; "destroyed" { "⚫" }; "partial" { "🟡" }; "failed" { "🔴" }; default { "❓" } }
+        $evt = if ($_.event) { "$($_.event) " } else { "" }
+        Write-Host "  $statusIcon $evt$($_.lab_code) | env: $($_.env_name) | $($_.status) | $($_.deployed_at)"
     }
     
     Write-Host ""
@@ -677,18 +950,33 @@ function Invoke-Status {
     if (-not $RepoUrl) { throw "RepoUrl is required for status" }
     
     $labCode = Get-LabCode $RepoUrl
+    $eventName = Get-EventName $RepoUrl
     $registry = Get-Registry
-    $deployment = $registry.deployments | Where-Object { $_.lab_code -eq $labCode -and $_.status -eq "deployed" } | Select-Object -Last 1
+    $deployment = $registry.deployments | Where-Object {
+        $_.lab_code -eq $labCode -and $_.status -in @("deployed", "partial", "provisioned", "failed") -and
+        ((-not $_.event) -or ($_.event -eq $eventName))
+    } | Select-Object -Last 1
     
     if (-not $deployment) {
-        Write-Host "  No active deployment for $labCode" -ForegroundColor Yellow
+        Write-Host "  No active deployment for $eventName $labCode" -ForegroundColor Yellow
         return @{ status = "not_deployed"; lab_code = $labCode } | ConvertTo-Json
+    }
+    
+    # Show failed deployments with mitigation info
+    if ($deployment.status -eq "failed") {
+        Write-Host "`n📊 Status: $eventName $labCode — ❌ FAILED`n" -ForegroundColor Red
+        Write-Host "  Failed at:   $($deployment.failed_at)"
+        Write-Host "  Location:    $($deployment.location)"
+        Write-Host "  Error:       $($deployment.error_summary)"
+        Write-Host "  Mitigation:  $(if ($deployment.mitigation_attempted) { 'Attempted (region retry)' } else { 'Not attempted' })"
+        Write-Host ""
+        return @{ status = "failed"; lab_code = $labCode; env_name = $deployment.env_name; error = $deployment.error_summary; mitigation_attempted = $deployment.mitigation_attempted } | ConvertTo-Json
     }
     
     $env:PATH = "$env:LOCALAPPDATA\Programs\Azure Dev CLI;$env:PATH"
     Set-Location $deployment.azd_dir
     
-    Write-Host "`n📊 Status: $labCode (env: $($deployment.env_name))`n" -ForegroundColor Cyan
+    Write-Host "`n📊 Status: $eventName $labCode (env: $($deployment.env_name))`n" -ForegroundColor Cyan
     Write-Host "  Deployed at: $($deployment.deployed_at)"
     Write-Host "  Location:    $($deployment.location)"
     Write-Host "  azd dir:     $($deployment.azd_dir)"
@@ -701,15 +989,142 @@ function Invoke-Status {
 }
 
 # ============================================================================
+# OUTLINE — Break a lab into ordered modules with commands + verification
+# ============================================================================
+
+function Invoke-Outline {
+    if (-not $RepoUrl) { throw "RepoUrl is required for outline" }
+
+    $labCode = Get-LabCode $RepoUrl
+    Write-Host "`n🧭 Outlining $labCode into modules`n" -ForegroundColor Cyan
+
+    $tempDir = Join-Path $env:TEMP "lab-outline-$labCode"
+    if (Test-Path $tempDir) { Remove-Item -Recurse -Force $tempDir }
+
+    Write-Host "  Cloning repository..."
+    git clone --depth 1 $RepoUrl $tempDir 2>&1 | Out-Null
+
+    $mdFiles = Get-MarkdownFiles $tempDir
+    if (-not $mdFiles -or @($mdFiles).Count -eq 0) {
+        Remove-Item -Recurse -Force $tempDir -ErrorAction SilentlyContinue
+        Write-Host "  ❌ No markdown instructions found in this repo." -ForegroundColor Red
+        return @{ lab_code = $labCode; module_count = 0; modules = @() } | ConvertTo-Json -Depth 6
+    }
+
+    # Detect a multi-file lab: a folder holding >=2 numbered/keyworded instruction files.
+    $source = ''
+    $sourceFiles = @()
+    $rawModules = @()
+
+    $byDir = $mdFiles | Group-Object DirectoryName | Sort-Object { @($_.Group).Count } -Descending
+    $seqFiles = $null
+    foreach ($g in $byDir) {
+        $numbered = $g.Group | Where-Object {
+            $_.Name -match '(?i)^(?:\d+|module|exercise|chapter|part|lab|step)[-_. ]*\d*' -and $_.Name -match '\d'
+        }
+        if (@($numbered).Count -ge 2) { $seqFiles = $numbered; break }
+    }
+
+    if ($seqFiles) {
+        $source = 'multi-file'
+        $ordered = $seqFiles | Sort-Object @(
+            @{ Expression = { if ($_.Name -match '(\d+)') { [int]$Matches[1] } else { 9999 } } },
+            @{ Expression = { $_.Name } }
+        )
+        foreach ($f in $ordered) {
+            $txt = Get-Content $f.FullName -Raw
+            $title = (Get-HeadingTitle $txt)
+            if (-not $title) { $title = [System.IO.Path]::GetFileNameWithoutExtension($f.Name) }
+            $rel = $f.FullName.Substring($tempDir.Length).TrimStart('\','/')
+            $sourceFiles += $rel
+            $rawModules += [ordered]@{ title = $title; body = $txt; file = $rel }
+        }
+    } else {
+        # Single instruction file: pick the most chapter-structured one.
+        $scored = $mdFiles | ForEach-Object {
+            $txt = Get-Content $_.FullName -Raw
+            $count = ([regex]::Matches($txt, '(?im)^#{1,4}\s+(?:module|chapter|exercise|task|part|step|lab)\s*#?\s*\d+')).Count
+            [PSCustomObject]@{ File = $_; Text = $txt; Score = $count; IsReadme = ($_.Name -ieq 'README.md'); Size = $_.Length }
+        }
+        $best = $scored | Sort-Object `
+            @{ Expression = 'Score'; Descending = $true }, `
+            @{ Expression = 'IsReadme'; Descending = $true }, `
+            @{ Expression = 'Size'; Descending = $true } | Select-Object -First 1
+        $source = if ($best.IsReadme) { 'readme' } else { 'single-file' }
+        $rel = $best.File.FullName.Substring($tempDir.Length).TrimStart('\','/')
+        $sourceFiles += $rel
+        foreach ($m in (Split-BodyIntoModules $best.Text)) {
+            $m.file = $rel
+            $rawModules += $m
+        }
+        if (@($rawModules).Count -eq 0) {
+            $rawModules += [ordered]@{ title = 'Lab'; body = $best.Text; file = $rel }
+        }
+    }
+
+    # Enrich each module with commands + verification steps.
+    $modules = @()
+    $i = 0
+    foreach ($m in $rawModules) {
+        $i++
+        $cmds = Get-CommandsFromBody $m.body
+        $veris = Get-VerificationFromBody $m.body
+        $modules += [ordered]@{
+            index              = $i
+            title              = $m.title
+            file               = $m.file
+            kind               = (Get-ModuleKind $cmds $veris)
+            command_count      = @($cmds).Count
+            commands           = @($cmds)
+            verification_count = @($veris).Count
+            verification       = @($veris)
+        }
+    }
+
+    # Human-readable summary
+    Write-Host "  Source: $source ($(@($sourceFiles).Count) file(s))"
+    Write-Host "  Modules detected: $(@($modules).Count)`n"
+    foreach ($m in $modules) {
+        $icon = switch ($m.kind) { 'deploy' { '🚀' }; 'configure' { '🔧' }; 'verify' { '✅' }; 'cleanup' { '🗑️' }; default { '📖' } }
+        Write-Host "  $icon Module $($m.index): $($m.title)" -ForegroundColor Cyan
+        Write-Host "      kind: $($m.kind) | commands: $($m.command_count) | manual checks: $($m.verification_count)"
+        if ($m.verification_count -gt 0) {
+            Write-Host "      Manual verification:" -ForegroundColor Yellow
+            foreach ($v in $m.verification) { Write-Host "        • $v" }
+        }
+    }
+    Write-Host ""
+    Write-Host "  Run this lab module-by-module with manual verification gates between modules." -ForegroundColor Green
+    Write-Host ""
+
+    Remove-Item -Recurse -Force $tempDir -ErrorAction SilentlyContinue
+
+    return @{
+        lab_code     = $labCode
+        repo_url     = $RepoUrl
+        source       = $source
+        source_files = @($sourceFiles)
+        module_count = @($modules).Count
+        modules      = @($modules)
+    } | ConvertTo-Json -Depth 6
+}
+
+# ============================================================================
 # MAIN DISPATCH
 # ============================================================================
 
 switch ($Action) {
-    "doctor"  { Invoke-Doctor }
-    "analyze" { Invoke-Analyze }
-    "prepare" { Invoke-Prepare }
-    "deploy"  { Invoke-Deploy }
-    "destroy" { Invoke-Destroy }
-    "list"    { Invoke-List }
-    "status"  { Invoke-Status }
+    "doctor"   { Invoke-Doctor }
+    "analyze"  { Invoke-Analyze }
+    "prepare"  { Invoke-Prepare }
+    "outline"  { Invoke-Outline }
+    "generate" {
+        # Dot-source the AVM composer module
+        . (Join-Path $PSScriptRoot "avm-composer.ps1")
+        Invoke-Generate -RepoUrl $RepoUrl -Force:$Force
+    }
+    "deploy"   { Invoke-Deploy }
+    "destroy"  { Invoke-Destroy }
+    "list"     { Invoke-List }
+    "status"   { Invoke-Status }
 }
