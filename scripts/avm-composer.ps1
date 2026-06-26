@@ -428,7 +428,6 @@ function Invoke-Generate {
         $existingType = if ($existingAzureYaml) { "azure.yaml at: $($existingAzureYaml.FullName)" } else { "Terraform at: $($existingTerraform.DirectoryName)" }
         Write-Host "  ⚠️  IaC already exists: $existingType" -ForegroundColor Yellow
         Write-Host "     Use -Force to regenerate. Skipping generation." -ForegroundColor Yellow
-        Remove-Item -Recurse -Force $tempDir -ErrorAction SilentlyContinue
         return @{
             status = 'skipped'
             reason = 'IaC already exists'
@@ -442,7 +441,6 @@ function Invoke-Generate {
 
     if (@($inferred).Count -eq 0) {
         Write-Host "  ❌ No Azure resources detected in lab content." -ForegroundColor Red
-        Remove-Item -Recurse -Force $tempDir -ErrorAction SilentlyContinue
         return @{
             status = 'failed'
             reason = 'No resources inferred from lab content'

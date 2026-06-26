@@ -471,9 +471,6 @@ function Invoke-Analyze {
         $result.env_overrides.GetEnumerator() | ForEach-Object { Write-Host "    $($_.Key) = $($_.Value)" }
     }
     
-    # Cleanup
-    Remove-Item -Recurse -Force $tempDir -ErrorAction SilentlyContinue
-    
     return $result | ConvertTo-Json -Depth 3
 }
 
@@ -630,9 +627,6 @@ function Invoke-Prepare {
             Write-Host ""
         }
     }
-    
-    # Cleanup
-    Remove-Item -Recurse -Force $tempDir -ErrorAction SilentlyContinue
     
     return @{ 
         lab_code = $labCode
@@ -1003,7 +997,6 @@ function Invoke-Outline {
 
     $mdFiles = Get-MarkdownFiles $tempDir
     if (-not $mdFiles -or @($mdFiles).Count -eq 0) {
-        Remove-Item -Recurse -Force $tempDir -ErrorAction SilentlyContinue
         Write-Host "  ❌ No markdown instructions found in this repo." -ForegroundColor Red
         return @{ lab_code = $labCode; module_count = 0; modules = @() } | ConvertTo-Json -Depth 6
     }
@@ -1093,8 +1086,6 @@ function Invoke-Outline {
     Write-Host ""
     Write-Host "  Run this lab module-by-module with manual verification gates between modules." -ForegroundColor Green
     Write-Host ""
-
-    Remove-Item -Recurse -Force $tempDir -ErrorAction SilentlyContinue
 
     return @{
         lab_code     = $labCode
