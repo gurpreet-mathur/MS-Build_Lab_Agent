@@ -94,6 +94,20 @@ function Get-EventName($url) {
     return "Lab"
 }
 
+function Get-LocalRepo($url) {
+    # Clone once to a persistent local directory; reuse on subsequent calls.
+    # All actions share the same local copy — no redundant clones.
+    $labCode = Get-LabCode $url
+    $eventName = Get-EventName $url
+    $repoDir = Join-Path $env:USERPROFILE "$eventName-$labCode"
+    if (-not (Test-Path $repoDir)) {
+        Write-Host "  Cloning repository..."
+        git clone --depth 1 $url $repoDir 2>&1 | Out-Null
+        if ($LASTEXITCODE -ne 0) { throw "Failed to clone $url" }
+    }
+    return $repoDir
+}
+
 function Get-TeamConfig {
     if (Test-Path $ConfigFile) {
         # Simple YAML parsing for our flat structure
@@ -414,12 +428,7 @@ function Invoke-Analyze {
     Write-Host "`n🔍 Analyzing lab: $(Get-LabCode $RepoUrl)`n" -ForegroundColor Cyan
     
     $labCode = Get-LabCode $RepoUrl
-    $tempDir = Join-Path $env:TEMP "lab-analyze-$labCode"
-    
-    if (Test-Path $tempDir) { Remove-Item -Recurse -Force $tempDir }
-    
-    Write-Host "  Cloning repository..."
-    git clone --depth 1 $RepoUrl $tempDir 2>&1 | Out-Null
+    $tempDir = Get-LocalRepo $RepoUrl
     
     # Find azure.yaml
     $azdPath = Find-AzureYaml $tempDir
@@ -478,11 +487,7 @@ function Invoke-Prepare {
     $labCode = Get-LabCode $RepoUrl
     Write-Host "`n🔧 Preparing $labCode for deployment`n" -ForegroundColor Cyan
     
-    $tempDir = Join-Path $env:TEMP "lab-prepare-$labCode"
-    if (Test-Path $tempDir) { Remove-Item -Recurse -Force $tempDir }
-    
-    Write-Host "  Cloning repository..."
-    git clone --depth 1 $RepoUrl $tempDir 2>&1 | Out-Null
+    $tempDir = Get-LocalRepo $RepoUrl
     
     $issues = @()
     $fixes = @()
@@ -656,12 +661,8 @@ function Invoke-Deploy {
     
     $env:PATH = "$env:LOCALAPPDATA\Programs\Azure Dev CLI;$env:PATH"
     
-    # Clone or find existing clone (event-prefixed so Build & Ignite labs never collide)
-    $cloneDir = Join-Path $env:USERPROFILE "$eventName-$labCode"
-    if (-not (Test-Path $cloneDir)) {
-        Write-Host "  Cloning repository..."
-        git clone $RepoUrl $cloneDir 2>&1 | Out-Null
-    }
+    # Clone or reuse existing local copy
+    $cloneDir = Get-LocalRepo $RepoUrl
     
     # Find azure.yaml directory
     $azdDir = Find-AzureYaml $cloneDir
@@ -998,11 +999,7 @@ function Invoke-Outline {
     $labCode = Get-LabCode $RepoUrl
     Write-Host "`n🧭 Outlining $labCode into modules`n" -ForegroundColor Cyan
 
-    $tempDir = Join-Path $env:TEMP "lab-outline-$labCode"
-    if (Test-Path $tempDir) { Remove-Item -Recurse -Force $tempDir }
-
-    Write-Host "  Cloning repository..."
-    git clone --depth 1 $RepoUrl $tempDir 2>&1 | Out-Null
+    $tempDir = Get-LocalRepo $RepoUrl
 
     $mdFiles = Get-MarkdownFiles $tempDir
     if (-not $mdFiles -or @($mdFiles).Count -eq 0) {

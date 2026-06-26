@@ -10,7 +10,18 @@ import { dirname, join } from "path";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const CORE_SCRIPT = join(__dirname, "..", "..", "core", "lab-manager.ps1");
+const CORE_SCRIPT = join(__dirname, "..", "..", "scripts", "lab-manager.ps1");
+
+// Input guards — reject shell-dangerous characters before they reach the command
+// string. Valid GitHub URLs / env names / regions pass through unchanged.
+const SAFE_REPO_URL = /^https:\/\/[A-Za-z0-9._\/-]+$/;
+const SAFE_TOKEN = /^[A-Za-z0-9._-]+$/;
+function assertSafe(value, pattern, label) {
+  if (value === undefined || value === null) return;
+  if (typeof value !== "string" || !pattern.test(value)) {
+    throw new Error(`Invalid ${label}: contains disallowed characters`);
+  }
+}
 
 const server = new Server(
   { name: "lab-lifecycle", version: "1.0.0" },
@@ -111,6 +122,14 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
   const { name, arguments: args } = request.params;
 
   let action, psArgs;
+
+  try {
+    assertSafe(args?.repo_url, SAFE_REPO_URL, "repo_url");
+    assertSafe(args?.env_name, SAFE_TOKEN, "env_name");
+    assertSafe(args?.location, SAFE_TOKEN, "location");
+  } catch (error) {
+    return { content: [{ type: "text", text: `Error: ${error.message}` }], isError: true };
+  }
 
   switch (name) {
     case "doctor":

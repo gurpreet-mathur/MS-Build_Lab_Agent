@@ -416,13 +416,8 @@ function Invoke-Generate {
 
     Write-Host "`n🔧 Generate IaC for: $labCode`n" -ForegroundColor Cyan
 
-    # Step 1: Clone repo
-    $tempDir = Join-Path $env:TEMP "lab-generate-$labCode"
-    if (Test-Path $tempDir) { Remove-Item -Recurse -Force $tempDir }
-
-    Write-Host "  📥 Cloning repository..."
-    git clone --depth 1 $RepoUrl $tempDir 2>&1 | Out-Null
-    if ($LASTEXITCODE -ne 0) { throw "Failed to clone $RepoUrl" }
+    # Step 1: Use shared local clone
+    $tempDir = Get-LocalRepo $RepoUrl
 
     # Step 2: Check if IaC already exists
     $existingAzureYaml = Get-ChildItem $tempDir -Filter "azure.yaml" -Recurse -File -ErrorAction SilentlyContinue | Select-Object -First 1
