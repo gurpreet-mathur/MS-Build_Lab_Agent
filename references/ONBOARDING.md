@@ -173,7 +173,7 @@ labs:
 
 ## 📬 Contact
 
-**Skill Owner:** Gurpreet Mathur (CSA)  
+**Skill Owner:** Gurpreet Mathur (SE)  
 **Repo:** https://github.com/msbl26/lab-lifecycle-skill  
 **Registry:** https://glowing-adventure-mvqrg5p.pages.github.io/registry/index.html
 
