@@ -27,16 +27,16 @@ resource aiServices 'Microsoft.CognitiveServices/accounts@2024-10-01' = {
   identity: { type: 'SystemAssigned' }
 }
 
-// GPT-4o model deployment
-resource gpt4oDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = {
+// GPT-4.1 model deployment
+resource gpt41Deployment 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = {
   parent: aiServices
-  name: 'gpt-4o'
+  name: 'gpt-4-1'
   sku: { name: 'GlobalStandard', capacity: 30 }
   properties: {
     model: {
       format: 'OpenAI'
-      name: 'gpt-4o'
-      version: '2024-11-20'
+      name: 'gpt-4.1'
+      version: '2025-04-14'
     }
   }
 }
@@ -53,7 +53,7 @@ resource embeddingDeployment 'Microsoft.CognitiveServices/accounts/deployments@2
       version: '2'
     }
   }
-  dependsOn: [gpt4oDeployment]
+  dependsOn: [gpt41Deployment]
 }
 
 // Storage for AI Hub
