@@ -95,17 +95,46 @@ function Get-EventName($url) {
 }
 
 function Get-LocalRepo($url) {
-    # Clone once to a persistent local directory; reuse on subsequent calls.
+    # Clone once inside the agent's own labs/ folder; reuse on subsequent calls.
     # All actions share the same local copy — no redundant clones.
     $labCode = Get-LabCode $url
     $eventName = Get-EventName $url
-    $repoDir = Join-Path $env:USERPROFILE "$eventName-$labCode"
+    $labsRoot = Join-Path (Split-Path $PSScriptRoot -Parent) "labs"
+    if (-not (Test-Path $labsRoot)) { New-Item -ItemType Directory -Path $labsRoot -Force | Out-Null }
+    $repoDir = Join-Path $labsRoot "$eventName-$labCode"
     if (-not (Test-Path $repoDir)) {
         Write-Host "  Cloning repository..."
         git clone --depth 1 $url $repoDir 2>&1 | Out-Null
         if ($LASTEXITCODE -ne 0) { throw "Failed to clone $url" }
     }
     return $repoDir
+}
+
+function Invoke-SaveToGitHub {
+    param([string]$LocalPath, [string]$LabCode)
+    # Offer user the option to push the local lab folder to their GitHub account.
+    Write-Host ""
+    Write-Host "  💾 Save lab to your GitHub account?" -ForegroundColor Cyan
+    Write-Host "     Local path: $LocalPath"
+    Write-Host ""
+    $save = Read-Host "  Push to your GitHub repo? (yes/no)"
+    if ($save -ne "yes") {
+        Write-Host "  Skipped. Local copy remains at: $LocalPath" -ForegroundColor Yellow
+        return
+    }
+    $repoName = Read-Host "  GitHub repo name (e.g. my-$LabCode)"
+    if (-not $repoName) { $repoName = "my-$LabCode" }
+    $visibility = Read-Host "  Visibility (public/private) [private]"
+    if (-not $visibility) { $visibility = "private" }
+
+    Write-Host "  Creating GitHub repo '$repoName' ($visibility)..."
+    gh repo create $repoName --$visibility --source $LocalPath --push 2>&1
+    if ($LASTEXITCODE -eq 0) {
+        Write-Host "  ✅ Pushed to GitHub: https://github.com/$(gh api user -q .login)/$repoName" -ForegroundColor Green
+    } else {
+        Write-Host "  ❌ Failed to create/push. You can do it manually:" -ForegroundColor Red
+        Write-Host "     cd $LocalPath && gh repo create $repoName --$visibility --source . --push"
+    }
 }
 
 function Get-TeamConfig {
@@ -906,6 +935,13 @@ function Invoke-Destroy {
         }
         Save-Registry $registry
         Write-Host "`n  ✅ $labCode destroyed in $([int]$duration.TotalMinutes)m $($duration.Seconds)s`n" -ForegroundColor Green
+
+        # Offer to save the local lab (with generated IaC) to user's GitHub
+        $labsRoot = Join-Path (Split-Path $PSScriptRoot -Parent) "labs"
+        $localLab = Join-Path $labsRoot "$eventName-$labCode"
+        if (Test-Path $localLab) {
+            Invoke-SaveToGitHub -LocalPath $localLab -LabCode $labCode
+        }
     } else {
         Write-Host "`n  ❌ Destroy failed. Check Azure portal for orphaned resources.`n" -ForegroundColor Red
     }
