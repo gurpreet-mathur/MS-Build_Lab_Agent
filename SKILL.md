@@ -39,6 +39,7 @@ Activate when the user:
 | `destroy` | Tear down all lab resources (requires confirmation) |
 | `list` | Show all tracked lab deployments |
 | `status` | Check current status of a deployed lab |
+| `registry` | **NEW** Discover every Microsoft event lab (Build, Ignite, AI Tour), probe each repo, classify agent support, and regenerate the lab registry + support matrix |
 
 ## Usage
 
@@ -63,9 +64,27 @@ Activate when the user:
 
 # Destroy when done
 .\scripts\lab-manager.ps1 -Action destroy -RepoUrl "https://github.com/microsoft/Build26-LAB520-..."
+
+# Rebuild the lab registry + support matrix (all events, or filter to one family)
+.\scripts\lab-manager.ps1 -Action registry
+.\scripts\lab-manager.ps1 -Action registry -EventFamily Build
 ```
 
 ## Supported labs
+
+The full, auto-generated picture of which labs the agent supports lives in
+[references/lab-support-matrix.md](references/lab-support-matrix.md) (human-readable,
+per-event tables) and [registry/labs-registry.json](registry/labs-registry.json)
+(machine-readable). It covers Build, Ignite, and AI Tour events, standalone
+Microsoft Learn / workshop / sample repos discovered across the official GitHub
+orgs, **and the AI Solution Accelerators catalog** ([accelerators.ms](https://accelerators.ms/)).
+Regenerate both at any time with `-Action registry`.
+
+Support is classified into: `supported` (deploy-validated), `likely_supported`
+(has `azure.yaml` → standard `azd`), `needs_iac_generation` (Azure app code but no
+IaC — the agent can scaffold it), `partial` (Terraform-only / manual steps),
+`docs_only` (published repo has no deployable artifacts), and `unsupported`
+(no public repo).
 
 ### Microsoft Build 2026
 

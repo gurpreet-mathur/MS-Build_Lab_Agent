@@ -40,13 +40,14 @@
 #>
 
 param(
-    [Parameter(Mandatory)][ValidateSet("doctor","analyze","prepare","outline","generate","deploy","destroy","list","status")]
+    [Parameter(Mandatory)][ValidateSet("doctor","analyze","prepare","outline","generate","deploy","destroy","list","status","registry")]
     [string]$Action,
     
     [string]$RepoUrl,
     [string]$EnvName,
     [string]$Location = "eastus2",
     [string]$ConfigFile = (Join-Path $PSScriptRoot "..\team-config.yaml"),
+    [string]$EventFamily,
     [switch]$Force
 )
 
@@ -1151,5 +1152,10 @@ switch ($Action) {
     "destroy"  { Invoke-Destroy }
     "list"     { Invoke-List }
     "status"   { Invoke-Status }
+    "registry" {
+        # Dot-source the registry builder module and build the support matrix
+        . (Join-Path $PSScriptRoot "registry-builder.ps1")
+        Build-LabRegistry -EventFilter $EventFamily
+    }
 }
 

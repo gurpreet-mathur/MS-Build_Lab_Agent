@@ -1,0 +1,105 @@
+{
+  "$comment": "Discovery sources for the lab registry. Consumed by scripts/registry-builder.ps1. JSON (not YAML) for robust native PowerShell parsing. Add a new event by appending an object here — no engine changes needed.",
+  "schema_version": "1.0.0",
+  "events": [
+    {
+      "event_family": "Build",
+      "year": 2026,
+      "event": "Microsoft Build 2026",
+      "event_slug": "build26",
+      "event_hub_url": "https://github.com/microsoft/build26-next-steps",
+      "harvest": {
+        "type": "markdown_catalog",
+        "path": "references/build-2026-labs.md",
+        "comment": "Local catalog with DIRECT repo URLs already resolved. Table rows: | LABxxx | Title | [Repo](url) | breakout | recording |",
+        "session_code_pattern": "LAB(?:SP)?\\d+",
+        "source_type": "official_markdown_catalog"
+      }
+    },
+    {
+      "event_family": "Ignite",
+      "year": 2025,
+      "event": "Microsoft Ignite 2025",
+      "event_slug": "ignite25",
+      "event_hub_url": "https://github.com/microsoft/ignite25-next-steps",
+      "harvest": {
+        "type": "github_readme",
+        "repo": "microsoft/ignite25-next-steps",
+        "comment": "Markdown table rows: | [LAB514 - Title](https://aka.ms/ignite25-LAB514GHRepo) | speakers |. Repo links are aka.ms shortlinks to resolve.",
+        "session_code_pattern": "LAB\\d+|PREL\\d+",
+        "session_type_map": { "LAB": "lab", "PREL": "pre-recorded" },
+        "source_type": "official_microsoft_event_repo"
+      }
+    },
+    {
+      "event_family": "AI Tour",
+      "year": 2026,
+      "event": "Microsoft AI Tour 2026",
+      "event_slug": "aitour26",
+      "event_hub_url": "https://github.com/microsoft/aitour26-resource-center",
+      "harvest": {
+        "type": "github_readme",
+        "repo": "microsoft/aitour26-resource-center",
+        "comment": "Bullet list: * [WRK540 - Title](https://aka.ms/WRK540GHrepo). Only WRK (hands-on workshops) are harvested as deployable; BRK/LTG are talks.",
+        "session_code_pattern": "WRK\\d+",
+        "session_type_map": { "WRK": "workshop" },
+        "source_type": "official_microsoft_event_repo"
+      }
+    },
+    {
+      "event_family": "Learn & Workshops",
+      "year": 0,
+      "event": "Microsoft Learn & Workshops",
+      "event_slug": "learn",
+      "event_hub_url": "https://learn.microsoft.com/training/",
+      "harvest": {
+        "type": "github_search",
+        "comment": "Discovers standalone hands-on-lab / workshop / sample repos in the official Microsoft GitHub orgs that are NOT tied to a Build/Ignite/AI Tour event. Repos already harvested by an event source are de-duplicated by slug. Sorted by recency, capped at max_results.",
+        "queries": [
+          { "owner": "MicrosoftLearning", "q": "mslearn" },
+          { "owner": "MicrosoftLearning", "q": "lab" },
+          { "owner": "MicrosoftLearning", "q": "workshop" },
+          { "owner": "Azure-Samples", "q": "workshop" },
+          { "owner": "Azure-Samples", "q": "hands-on-lab" },
+          { "owner": "microsoft", "q": "workshop in:name" },
+          { "owner": "microsoft", "q": "hands-on-lab in:name" }
+        ],
+        "limit": 40,
+        "max_results": 80,
+        "include_archived": false,
+        "skip_name_pattern": "test-lab-repo|psot-lab-repo-test|^https-|\\.(ja-jp|ko-kr|zh-cn|es-es|pt-br|fr-fr|de-de)$",
+        "default_session_type": "workshop",
+        "source_type": "microsoft_learn_or_workshop"
+      }
+    },
+    {
+      "event_family": "Solution Accelerators",
+      "year": 0,
+      "event": "Microsoft AI Solution Accelerators",
+      "event_slug": "accelerators",
+      "event_hub_url": "https://accelerators.ms/",
+      "harvest": {
+        "type": "github_search",
+        "comment": "Discovers the Microsoft AI Solution Accelerators (CSA Gold Standards) catalog at https://accelerators.ms. Most are named '*-solution-accelerator' in the microsoft/Azure-Samples orgs; the 'repos' list pins curated entries whose names don't match the search terms. Deduped by slug against event/learn sources.",
+        "queries": [
+          { "owner": "microsoft", "q": "solution-accelerator in:name" },
+          { "owner": "microsoft", "q": "topic:solution-accelerator" },
+          { "owner": "Azure-Samples", "q": "solution-accelerator in:name" },
+          { "owner": "Azure-Samples", "q": "topic:solution-accelerator" }
+        ],
+        "repos": [
+          "microsoft/deploy-your-ai-application-in-production",
+          "microsoft/agentic-applications-for-unified-data-foundation-solution-accelerator",
+          "microsoft/Container-Migration-Solution-Accelerator"
+        ],
+        "limit": 60,
+        "max_results": 60,
+        "include_archived": false,
+        "skip_name_pattern": "test-lab-repo|psot-lab-repo-test|^https-|\\.(ja-jp|ko-kr|zh-cn|es-es|pt-br|fr-fr|de-de)$",
+        "default_session_type": "workshop",
+        "source_type": "microsoft_solution_accelerator"
+      }
+    }
+  ]
+}
+

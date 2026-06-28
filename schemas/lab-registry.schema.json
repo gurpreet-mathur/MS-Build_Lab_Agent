@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/msbl26/lab-lifecycle-skill/schemas/lab-registry.schema.json",
+  "title": "Lab Lifecycle Registry",
+  "description": "Normalized registry of Microsoft event labs (Build / Ignite / AI Tour) with agent-support classification. Built by scripts/registry-builder.ps1.",
+  "type": "object",
+  "required": ["schema_version", "generated_utc", "labs"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "description": "SemVer of this registry schema. major=breaking, minor=additive, patch=clarifying.",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "generated_utc": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this registry file was generated."
+    },
+    "generator": {
+      "type": "string",
+      "description": "Tool + version that produced this file."
+    },
+    "summary": {
+      "type": "object",
+      "description": "Roll-up counts for quick consumption.",
+      "properties": {
+        "total": { "type": "integer" },
+        "by_event": { "type": "object", "additionalProperties": { "type": "integer" } },
+        "by_support_status": { "type": "object", "additionalProperties": { "type": "integer" } }
+      }
+    },
+    "labs": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/labEntry" }
+    }
+  },
+  "definitions": {
+    "labEntry": {
+      "type": "object",
+      "required": ["lab_id", "event_family", "session_code", "title", "support_status", "source_confidence"],
+      "properties": {
+        "lab_id": {
+          "type": "string",
+          "description": "Globally unique id: <event_slug>-<session_code>, e.g. ignite25-LAB514, build26-LAB520, aitour26-WRK540."
+        },
+        "event": { "type": "string", "description": "Display event name, e.g. 'Microsoft Ignite 2025'." },
+        "event_family": { "type": "string", "enum": ["Build", "Ignite", "AI Tour", "Learn & Workshops", "Solution Accelerators"] },
+        "year": { "type": "integer" },
+        "session_code": { "type": "string", "description": "e.g. LAB514, WRK540, PREL13." },
+        "session_type": {
+          "type": "string",
+          "enum": ["lab", "workshop", "pre-recorded", "session", "unknown"],
+          "description": "lab=LAB, workshop=WRK, pre-recorded=PREL, session=BRK/LTG."
+        },
+        "title": { "type": "string" },
+        "summary": { "type": ["string", "null"], "description": "Repo description or short abstract." },
+        "presenters": { "type": "array", "items": { "type": "string" } },
+        "source_url": {
+          "type": ["string", "null"],
+          "description": "Discovery link from the event hub (may be an aka.ms shortlink)."
+        },
+        "repo_url": {
+          "type": ["string", "null"],
+          "description": "Resolved canonical GitHub repo URL (null if no repo published)."
+        },
+        "repo_slug": { "type": ["string", "null"], "description": "owner/name." },
+        "event_hub_url": { "type": ["string", "null"], "description": "The event next-steps hub this lab was discovered from." },
+        "source_type": {
+          "type": "string",
+          "enum": ["official_microsoft_event_repo", "official_markdown_catalog", "microsoft_learn_or_workshop", "microsoft_solution_accelerator", "partner_or_external", "unknown"]
+        },
+        "repo_structure": {
+          "type": "object",
+          "description": "Lightweight structural probe of the repo (no clone; GitHub git-tree API).",
+          "properties": {
+            "has_azure_yaml": { "type": "boolean" },
+            "azure_yaml_path": { "type": ["string", "null"] },
+            "has_infra": { "type": "boolean" },
+            "has_bicep": { "type": "boolean" },
+            "has_terraform": { "type": "boolean" },
+            "has_dockerfile": { "type": "boolean" },
+            "has_devcontainer": { "type": "boolean" },
+            "has_codespaces": { "type": "boolean" },
+            "languages": { "type": "array", "items": { "type": "string" } },
+            "path_count": { "type": "integer" },
+            "default_branch": { "type": ["string", "null"] },
+            "latest_release_tag": { "type": ["string", "null"] },
+            "archived": { "type": "boolean" }
+          }
+        },
+        "services_used": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Azure/Microsoft services inferred from the README."
+        },
+        "deploy_path": {
+          "type": "string",
+          "enum": ["azd", "terraform", "needs_iac_generation", "docs_only", "none", "unknown"],
+          "description": "How the agent would deploy this lab."
+        },
+        "support_status": {
+          "type": "string",
+          "enum": ["supported", "likely_supported", "needs_iac_generation", "partial", "docs_only", "unsupported", "unknown"],
+          "description": "Agent-support classification. 'supported' requires a real deploy validation."
+        },
+        "support_reason": { "type": "array", "items": { "type": "string" } },
+        "validation": {
+          "type": "object",
+          "description": "Phase-2 deploy-validation evidence. Static builds leave status=not_tested.",
+          "properties": {
+            "status": { "type": "string", "enum": ["not_tested", "passed", "failed", "partial"] },
+            "last_run_utc": { "type": ["string", "null"], "format": "date-time" },
+            "last_tested_commit": { "type": ["string", "null"] },
+            "evidence": { "type": ["string", "null"] }
+          }
+        },
+        "source_confidence": { "type": "string", "enum": ["high", "medium", "low"] },
+        "last_discovered_utc": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}

@@ -72,23 +72,65 @@ labs:
       ENABLE_HOSTED_AGENTS: "true"
 ```
 
+## 📊 Lab Support Matrix
+
+Wondering **which labs this agent supports**? The registry builder discovers every
+published Microsoft event lab (Build 2026, Ignite 2025, AI Tour 2026), **standalone
+Microsoft Learn / workshop / sample repos** (microsoft, Azure-Samples,
+MicrosoftLearning orgs), **and the AI Solution Accelerators catalog**
+([accelerators.ms](https://accelerators.ms/)), probes each repo, and classifies how
+well the agent can drive it:
+
+```powershell
+# Discover all events and (re)generate the registry + matrix
+.\scripts\lab-manager.ps1 -Action registry
+
+# Or limit to one event family
+.\scripts\lab-manager.ps1 -Action registry -EventFamily Ignite
+```
+
+Outputs:
+
+- **[references/lab-support-matrix.md](references/lab-support-matrix.md)** — human-readable, per-event tables
+- **[registry/labs-registry.json](registry/labs-registry.json)** — machine-readable, schema-validated
+
+| Status | Meaning |
+|--------|---------|
+| ✅ `supported` | Deploy-validated (real `azd up` succeeded) |
+| 🟢 `likely_supported` | Has `azure.yaml` → standard `azd` path |
+| 🛠️ `needs_iac_generation` | Azure app code but no IaC — agent can scaffold it (AVM) |
+| 🟡 `partial` | Terraform-only or manual/external steps |
+| 📄 `docs_only` | Published repo is docs-only (no deployable artifacts) |
+| ❌ `unsupported` | No public repo / no Azure deploy path |
+
+Discovery sources are declared in [sources/event-sources.json](sources/event-sources.json) —
+adding a future event is a config change, not a code change.
+
 ## 🏗️ Architecture
 
 ```
 lab-lifecycle-skill/
 ├── SKILL.md                  # Required – frontmatter + instructions
 ├── scripts/                  # Executable code agents can run
-│   ├── lab-manager.ps1       # Core engine (all 9 actions)
+│   ├── lab-manager.ps1       # Core engine (all 10 actions)
+│   ├── registry-builder.ps1  # Lab discovery + support classifier
 │   └── avm-composer.ps1     # AVM-powered IaC generator
+├── sources/                  # Declarative event discovery sources
+│   └── event-sources.json   # Build / Ignite / AI Tour harvest config
+├── schemas/                  # JSON Schemas
+│   └── lab-registry.schema.json
+├── registry/                 # Generated registry (machine-readable)
+│   └── labs-registry.json
 ├── references/               # Reference documents loaded on demand
 │   ├── ONBOARDING.md        # Quick-start guide
 │   ├── build-2026-labs.md   # Lab catalog
+│   ├── lab-support-matrix.md # Generated support matrix (human-readable)
 │   └── share-templates.md   # Teams/email templates
 ├── assets/                   # Templates and static resources
 │   └── templates/           # Bicep templates (AVM modules)
 ├── mcp-server/               # MCP Server integration
 │   ├── package.json
-│   └── src/index.js          # MCP Server (6 tools)
+│   └── src/index.js          # MCP Server (9 tools)
 └── .vscode/
     └── mcp.json              # VS Code MCP integration
 ```

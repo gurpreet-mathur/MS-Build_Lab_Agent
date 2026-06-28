@@ -110,7 +110,21 @@ const TOOLS = [
       required: ["repo_url"],
     },
   },
+  {
+    name: "build_registry",
+    description: "Discover all Microsoft event labs (Build, Ignite, AI Tour) from the declared sources, probe each repo, classify how well the agent supports it, and regenerate the lab registry (registry/labs-registry.json) and support matrix (references/lab-support-matrix.md). Optionally limit to one event family.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        event_family: { type: "string", description: "Optional filter: 'Build', 'Ignite', or 'AI Tour'. Omit to build all.", enum: ["Build", "Ignite", "AI Tour"] },
+      },
+    },
+  },
 ];
+
+// Allowlist for the event_family filter (contains a space for "AI Tour", so it
+// cannot use the generic SAFE_TOKEN pattern).
+const VALID_EVENT_FAMILIES = new Set(["Build", "Ignite", "AI Tour"]);
 
 // List tools
 server.setRequestHandler(ListToolsRequestSchema, async () => ({
@@ -167,6 +181,16 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     case "get_lab_status":
       action = "status";
       psArgs = `-RepoUrl "${args.repo_url}"`;
+      break;
+    case "build_registry":
+      action = "registry";
+      psArgs = "";
+      if (args?.event_family) {
+        if (!VALID_EVENT_FAMILIES.has(args.event_family)) {
+          return { content: [{ type: "text", text: `Error: Invalid event_family. Use one of: Build, Ignite, AI Tour` }], isError: true };
+        }
+        psArgs = `-EventFamily "${args.event_family}"`;
+      }
       break;
     default:
       return { content: [{ type: "text", text: `Unknown tool: ${name}` }], isError: true };

@@ -1,0 +1,62 @@
+name: Build Lab Registry
+
+# Phase-2 automation scaffold: periodically rediscover Microsoft event labs,
+# reclassify agent support, and commit the refreshed registry + support matrix.
+#
+# Requires only the built-in GITHUB_TOKEN (read-only repo probing via the gh CLI).
+# Discovery sources are declared in sources/event-sources.json.
+
+on:
+  workflow_dispatch:
+    inputs:
+      event_family:
+        description: "Limit to one event family (Build, Ignite, AI Tour). Leave blank for all."
+        required: false
+        default: ""
+  schedule:
+    # Weekly, Mondays 06:00 UTC. Adjust as cadence needs change.
+    - cron: "0 6 * * 1"
+
+permissions:
+  contents: write
+
+jobs:
+  build-registry:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up PowerShell
+        shell: bash
+        run: |
+          if ! command -v pwsh >/dev/null 2>&1; then
+            echo "PowerShell (pwsh) is preinstalled on ubuntu-latest runners."
+          fi
+          pwsh --version
+
+      - name: Build registry
+        env:
+          # gh CLI uses GITHUB_TOKEN for authenticated, higher-rate-limit API calls.
+          GH_TOKEN: ${{ github.token }}
+          EVENT_FAMILY: ${{ github.event.inputs.event_family }}
+        shell: bash
+        run: |
+          if [ -n "$EVENT_FAMILY" ]; then
+            pwsh -NoProfile -File ./scripts/lab-manager.ps1 -Action registry -EventFamily "$EVENT_FAMILY"
+          else
+            pwsh -NoProfile -File ./scripts/lab-manager.ps1 -Action registry
+          fi
+
+      - name: Commit refreshed registry
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add registry/labs-registry.json references/lab-support-matrix.md
+          if git diff --cached --quiet; then
+            echo "No registry changes to commit."
+          else
+            git commit -m "chore(registry): refresh lab registry + support matrix [skip ci]"
+            git push
+          fi
