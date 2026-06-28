@@ -1,0 +1,8 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
+name: azure-synapse-customer-insights-customer360-solution-accelerator
+metadata:
+  template: lab-lifecycle-skill@generate
+infra:
+  provider: bicep
+  path: ./infra

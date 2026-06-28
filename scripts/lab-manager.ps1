@@ -95,14 +95,26 @@ function Get-EventName($url) {
     return "Lab"
 }
 
+function Get-RepoDirName($url) {
+    # Stable, unique local-clone folder name for a repo. Event labs keep the
+    # familiar "<event>-LAB###" name; repos without a LAB code (e.g. solution
+    # accelerators, standalone workshops) use "<owner>-<repo>" so they never
+    # collide in a shared "Lab-UNKNOWN" folder.
+    $labCode = Get-LabCode $url
+    if ($labCode -ne "UNKNOWN") { return "$(Get-EventName $url)-$labCode" }
+    $clean = ($url -replace '/$', '') -replace '\.git$', ''
+    $parts = $clean -split '/'
+    $name = $parts[-1]
+    $owner = if ($parts.Count -ge 2) { $parts[-2] } else { "repo" }
+    return "$owner-$name"
+}
+
 function Get-LocalRepo($url) {
     # Clone once inside the agent's own labs/ folder; reuse on subsequent calls.
     # All actions share the same local copy — no redundant clones.
-    $labCode = Get-LabCode $url
-    $eventName = Get-EventName $url
     $labsRoot = Join-Path (Split-Path $PSScriptRoot -Parent) "labs"
     if (-not (Test-Path $labsRoot)) { New-Item -ItemType Directory -Path $labsRoot -Force | Out-Null }
-    $repoDir = Join-Path $labsRoot "$eventName-$labCode"
+    $repoDir = Join-Path $labsRoot (Get-RepoDirName $url)
     if (-not (Test-Path $repoDir)) {
         Write-Host "  Cloning repository..."
         git clone --depth 1 $url $repoDir 2>&1 | Out-Null
@@ -939,7 +951,7 @@ function Invoke-Destroy {
 
         # Offer to save the local lab (with generated IaC) to user's GitHub
         $labsRoot = Join-Path (Split-Path $PSScriptRoot -Parent) "labs"
-        $localLab = Join-Path $labsRoot "$eventName-$labCode"
+        $localLab = Join-Path $labsRoot (Get-RepoDirName $RepoUrl)
         if (Test-Path $localLab) {
             Invoke-SaveToGitHub -LocalPath $localLab -LabCode $labCode
         }

@@ -256,6 +256,7 @@ function New-Probe {
         default_branch     = $null
         latest_release_tag = $null
         archived           = $false
+        has_interactive_hooks = $false
         readme             = ''
     }
 }
@@ -317,6 +318,18 @@ function Get-RepoProbe([string]$slug) {
         $rb64 = (gh api "repos/$slug/readme" --jq .content 2>$null) -join ''
         if ($rb64) { $probe.readme = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($rb64)) }
     } catch {}
+
+    # azure.yaml hooks: `interactive: true` postprovision/predown hooks require a
+    # human at the keyboard during `azd up`, so the deploy can't run unattended.
+    if ($probe.has_azure_yaml -and $probe.azure_yaml_path) {
+        try {
+            $yb64 = (gh api "repos/$slug/contents/$($probe.azure_yaml_path)" --jq '.content' 2>$null) -join ''
+            if ($yb64 -and $yb64 -notmatch '"message"' -and $yb64 -notmatch '"status"') {
+                $yaml = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String(($yb64 -replace '\s', '')))
+                if ($yaml -match 'interactive:\s*true') { $probe.has_interactive_hooks = $true }
+            }
+        } catch {}
+    }
 
     return $probe
 }
@@ -526,9 +539,11 @@ function Build-LabRegistry {
                     default_branch     = $probe.default_branch
                     latest_release_tag = $probe.latest_release_tag
                     archived           = [bool]$probe.archived
+                    has_interactive_hooks = [bool]$probe.has_interactive_hooks
                 }
                 services_used   = @($services)
                 deploy_path     = $cls.deploy_path
+                deploy_mode     = if ($probe.has_interactive_hooks) { 'human_assisted' } elseif ($probe.has_azure_yaml) { 'unattended' } else { 'n/a' }
                 support_status  = $cls.support_status
                 support_reason  = @($cls.support_reason)
                 validation      = [ordered]@{
@@ -609,6 +624,8 @@ function Write-LabSupportMatrix {
     [void]$sb.AppendLine('| ❌ unsupported | No public repo / no Azure deploy path |')
     [void]$sb.AppendLine('| ❔ unknown | Repo could not be probed |')
     [void]$sb.AppendLine('')
+    [void]$sb.AppendLine('> 🤝 next to a deploy path = `azure.yaml` declares `interactive: true` hooks, so `azd up` needs a human at the keyboard (not fully unattended).')
+    [void]$sb.AppendLine('')
 
     # Render preferred event families first, then any additional ones (e.g. the
     # Microsoft Learn / workshops source) in discovery order.
@@ -630,7 +647,9 @@ function Write-LabSupportMatrix {
             $repo = if ($l.repo_url) { "[repo]($($l.repo_url))" } else { '—' }
             $svcs = if (@($l.services_used).Count -gt 0) { (@($l.services_used) | Select-Object -First 4) -join ', ' } else { '—' }
             $title = $l.title -replace '\|','\|'
-            [void]$sb.AppendLine("| $ico ``$($l.support_status)`` | $($l.session_code) | $title | ``$($l.deploy_path)`` | $svcs | $repo |")
+            $deployCol = "``$($l.deploy_path)``"
+            if ($l.deploy_mode -eq 'human_assisted') { $deployCol += ' 🤝' }
+            [void]$sb.AppendLine("| $ico ``$($l.support_status)`` | $($l.session_code) | $title | $deployCol | $svcs | $repo |")
         }
         [void]$sb.AppendLine('')
     }

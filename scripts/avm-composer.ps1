@@ -345,15 +345,18 @@ function New-GeneratedAzureYaml {
     param(
         [string]$OutputDir,
         [string]$LabCode,
+        [string]$ProjectName,
         [array]$PatternModules
     )
 
     $usesHostedAgents = ($PatternModules | Where-Object { $_.name -eq 'ai-foundry' }) -ne $null
 
+    $name = if ($ProjectName) { $ProjectName } else { "$($LabCode.ToLower())-lab" }
+
     $yaml = @"
 # yaml-language-server: `$schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
 
-name: $($LabCode.ToLower())-lab
+name: $name
 metadata:
   template: lab-lifecycle-skill@generate
 infra:
@@ -471,7 +474,12 @@ function Invoke-Generate {
     $infraDir = New-GeneratedBicep -InferredResources $inferred -PatternModules $patterns -OutputDir $targetDir -LabCode $labCode
 
     # Step 6: Generate azure.yaml
-    New-GeneratedAzureYaml -OutputDir $targetDir -LabCode $labCode -PatternModules $patterns
+    $projectName = if ($labCode -ne 'UNKNOWN') {
+        "$($labCode.ToLower())-lab"
+    } else {
+        ((($RepoUrl -replace '/$', '') -replace '\.git$', '') -split '/')[-1].ToLower()
+    }
+    New-GeneratedAzureYaml -OutputDir $targetDir -LabCode $labCode -ProjectName $projectName -PatternModules $patterns
 
     # Step 7: Validate
     Write-Host "  ✅ Validating generated Bicep..."

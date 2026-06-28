@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
+name: azure-pdf-form-processing-automation-solution-accelerator
+metadata:
+  template: lab-lifecycle-skill@generate
+infra:
+  provider: bicep
+  path: ./infra
+# Note: If this lab uses Foundry Hosted Agents, uncomment and configure:
+# services:
+#   agent:
+#     project: src/<agent-folder>
+#     host: azure.ai.agent
+#     language: docker

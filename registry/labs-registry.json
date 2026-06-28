@@ -1,22 +1,22 @@
 {
   "schema_version": "1.0.0",
-  "generated_utc": "2026-06-28T03:15:20.4295439Z",
+  "generated_utc": "2026-06-28T05:02:36.4890945Z",
   "generator": "registry-builder.ps1 v1.0.0",
   "summary": {
     "total": 192,
     "by_event": {
+      "Solution Accelerators": 24,
       "Ignite": 62,
-      "Learn & Workshops": 79,
-      "Build": 20,
       "AI Tour": 7,
-      "Solution Accelerators": 24
+      "Learn & Workshops": 79,
+      "Build": 20
     },
     "by_support_status": {
-      "needs_iac_generation": 68,
-      "unsupported": 6,
-      "likely_supported": 34,
+      "partial": 5,
       "docs_only": 79,
-      "partial": 5
+      "unsupported": 6,
+      "needs_iac_generation": 68,
+      "likely_supported": 34
     }
   },
   "labs": [
@@ -48,12 +48,14 @@
         "path_count": 38,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=38)"
@@ -65,7 +67,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:01:51.2767247Z"
+      "last_discovered_utc": "2026-06-28T04:48:51.5523122Z"
     },
     {
       "lab_id": "build26-LAB501",
@@ -100,7 +102,8 @@
         "path_count": 73,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure Cosmos DB",
@@ -112,6 +115,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (CSS, Dockerfile, HTML, Python) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -123,7 +127,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:01:55.3348058Z"
+      "last_discovered_utc": "2026-06-28T04:48:55.1959756Z"
     },
     {
       "lab_id": "build26-LAB502",
@@ -160,12 +164,14 @@
         "path_count": 219,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Model Context Protocol"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Bicep, C#, CSS, HTML, PowerShell, Shell) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -177,7 +183,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:01:59.4678513Z"
+      "last_discovered_utc": "2026-06-28T04:48:58.9748573Z"
     },
     {
       "lab_id": "build26-LAB510",
@@ -209,13 +215,15 @@
         "path_count": 97,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure Kubernetes Service",
         "Model Context Protocol"
       ],
       "deploy_path": "terraform",
+      "deploy_mode": "n/a",
       "support_status": "partial",
       "support_reason": [
         "Terraform IaC (not azd) — manual / non-azd deploy"
@@ -227,7 +235,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:02:03.3602292Z"
+      "last_discovered_utc": "2026-06-28T04:49:02.4424366Z"
     },
     {
       "lab_id": "build26-LAB511",
@@ -262,7 +270,8 @@
         "path_count": 47,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -270,6 +279,7 @@
         "Agent Framework"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "unattended",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -282,7 +292,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:02:06.8204832Z"
+      "last_discovered_utc": "2026-06-28T04:49:06.3271156Z"
     },
     {
       "lab_id": "build26-LAB512",
@@ -322,7 +332,8 @@
         "path_count": 1402,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure Kubernetes Service",
@@ -330,6 +341,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Batchfile, C#, CSS, Dockerfile, HTML, JavaScript, PowerShell, Shell, TypeScript) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -341,7 +353,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:02:10.7380054Z"
+      "last_discovered_utc": "2026-06-28T04:49:11.1369926Z"
     },
     {
       "lab_id": "build26-LAB513",
@@ -371,7 +383,8 @@
         "path_count": 71,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -381,6 +394,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=71)"
@@ -392,7 +406,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:02:14.6090043Z"
+      "last_discovered_utc": "2026-06-28T04:49:14.4182700Z"
     },
     {
       "lab_id": "build26-LAB514",
@@ -427,13 +441,15 @@
         "path_count": 295,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Fabric",
         "Model Context Protocol"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (CSS, HTML, JavaScript, TypeScript) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -445,7 +461,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:02:18.1210725Z"
+      "last_discovered_utc": "2026-06-28T04:49:17.9502261Z"
     },
     {
       "lab_id": "build26-LAB520",
@@ -481,7 +497,8 @@
         "path_count": 84,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
@@ -489,6 +506,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "unattended",
       "support_status": "likely_supported",
       "support_reason": [
         "deploy-validated (status=not_tested)"
@@ -500,7 +518,7 @@
         "evidence": "deployment registry: partial"
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:02:22.0961734Z"
+      "last_discovered_utc": "2026-06-28T04:49:22.6845367Z"
     },
     {
       "lab_id": "build26-LAB521",
@@ -535,7 +553,8 @@
         "path_count": 71,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -543,6 +562,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Jupyter Notebook, PowerShell, Python, Shell) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -554,7 +574,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:02:25.4967863Z"
+      "last_discovered_utc": "2026-06-28T04:49:27.5286342Z"
     },
     {
       "lab_id": "build26-LAB530",
@@ -584,7 +604,8 @@
         "path_count": 30,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
@@ -592,6 +613,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=30)"
@@ -603,7 +625,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:02:29.2421938Z"
+      "last_discovered_utc": "2026-06-28T04:49:31.2290063Z"
     },
     {
       "lab_id": "build26-LAB532",
@@ -639,7 +661,8 @@
         "path_count": 70,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": true
       },
       "services_used": [
         "Azure OpenAI",
@@ -649,6 +672,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "human_assisted",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -661,7 +685,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:02:33.0597591Z"
+      "last_discovered_utc": "2026-06-28T04:49:35.9733137Z"
     },
     {
       "lab_id": "build26-LAB540",
@@ -697,7 +721,8 @@
         "path_count": 149,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
@@ -706,6 +731,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "unattended",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (zava/azure.yaml) → azd up path",
@@ -719,7 +745,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:02:36.5218167Z"
+      "last_discovered_utc": "2026-06-28T04:49:40.2107340Z"
     },
     {
       "lab_id": "build26-LAB550",
@@ -753,12 +779,14 @@
         "path_count": 37,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Model Context Protocol"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (HTML, PowerShell, Python) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -770,7 +798,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:02:40.0300803Z"
+      "last_discovered_utc": "2026-06-28T04:49:44.3280317Z"
     },
     {
       "lab_id": "build26-LABSP580",
@@ -800,10 +828,12 @@
         "path_count": 0,
         "default_branch": null,
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "none",
+      "deploy_mode": "n/a",
       "support_status": "unsupported",
       "support_reason": [
         "no public GitHub repo published (partner/3rd-party or unreleased)"
@@ -815,7 +845,7 @@
         "evidence": null
       },
       "source_confidence": "low",
-      "last_discovered_utc": "2026-06-28T03:02:40.0334372Z"
+      "last_discovered_utc": "2026-06-28T04:49:44.3300127Z"
     },
     {
       "lab_id": "build26-LABSP581",
@@ -845,10 +875,12 @@
         "path_count": 0,
         "default_branch": null,
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "none",
+      "deploy_mode": "n/a",
       "support_status": "unsupported",
       "support_reason": [
         "no public GitHub repo published (partner/3rd-party or unreleased)"
@@ -860,7 +892,7 @@
         "evidence": null
       },
       "source_confidence": "low",
-      "last_discovered_utc": "2026-06-28T03:02:40.0341203Z"
+      "last_discovered_utc": "2026-06-28T04:49:44.3308734Z"
     },
     {
       "lab_id": "build26-LABSP583",
@@ -890,10 +922,12 @@
         "path_count": 0,
         "default_branch": null,
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "none",
+      "deploy_mode": "n/a",
       "support_status": "unsupported",
       "support_reason": [
         "no public GitHub repo published (partner/3rd-party or unreleased)"
@@ -905,7 +939,7 @@
         "evidence": null
       },
       "source_confidence": "low",
-      "last_discovered_utc": "2026-06-28T03:02:40.0358888Z"
+      "last_discovered_utc": "2026-06-28T04:49:44.3317794Z"
     },
     {
       "lab_id": "build26-LABSP584",
@@ -935,10 +969,12 @@
         "path_count": 0,
         "default_branch": null,
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "none",
+      "deploy_mode": "n/a",
       "support_status": "unsupported",
       "support_reason": [
         "no public GitHub repo published (partner/3rd-party or unreleased)"
@@ -950,7 +986,7 @@
         "evidence": null
       },
       "source_confidence": "low",
-      "last_discovered_utc": "2026-06-28T03:02:40.0374339Z"
+      "last_discovered_utc": "2026-06-28T04:49:44.3334379Z"
     },
     {
       "lab_id": "build26-LABSP585",
@@ -980,10 +1016,12 @@
         "path_count": 0,
         "default_branch": null,
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "none",
+      "deploy_mode": "n/a",
       "support_status": "unsupported",
       "support_reason": [
         "no public GitHub repo published (partner/3rd-party or unreleased)"
@@ -995,7 +1033,7 @@
         "evidence": null
       },
       "source_confidence": "low",
-      "last_discovered_utc": "2026-06-28T03:02:40.0389461Z"
+      "last_discovered_utc": "2026-06-28T04:49:44.3346072Z"
     },
     {
       "lab_id": "build26-LABSP586",
@@ -1025,10 +1063,12 @@
         "path_count": 0,
         "default_branch": null,
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "none",
+      "deploy_mode": "n/a",
       "support_status": "unsupported",
       "support_reason": [
         "no public GitHub repo published (partner/3rd-party or unreleased)"
@@ -1040,7 +1080,7 @@
         "evidence": null
       },
       "source_confidence": "low",
-      "last_discovered_utc": "2026-06-28T03:02:40.0408879Z"
+      "last_discovered_utc": "2026-06-28T04:49:44.3357358Z"
     },
     {
       "lab_id": "ignite25-LAB510",
@@ -1070,12 +1110,14 @@
         "path_count": 21,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=21)"
@@ -1087,7 +1129,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:02:46.4543182Z"
+      "last_discovered_utc": "2026-06-28T04:49:49.4264298Z"
     },
     {
       "lab_id": "ignite25-LAB511",
@@ -1123,7 +1165,8 @@
         "path_count": 75,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
@@ -1131,6 +1174,7 @@
         "Azure Storage"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Bicep, Jupyter Notebook, PowerShell, Python, Shell) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -1142,7 +1186,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:02:51.8576181Z"
+      "last_discovered_utc": "2026-06-28T04:49:54.2417561Z"
     },
     {
       "lab_id": "ignite25-LAB512",
@@ -1176,13 +1220,15 @@
         "path_count": 135,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
         "Model Context Protocol"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Dockerfile, Python, Shell) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -1194,7 +1240,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:02:57.1264015Z"
+      "last_discovered_utc": "2026-06-28T04:49:58.8040506Z"
     },
     {
       "lab_id": "ignite25-LAB513",
@@ -1224,7 +1270,8 @@
         "path_count": 27,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -1233,6 +1280,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=27)"
@@ -1244,7 +1292,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:03:02.0589995Z"
+      "last_discovered_utc": "2026-06-28T04:50:03.5715127Z"
     },
     {
       "lab_id": "ignite25-LAB514",
@@ -1274,7 +1322,8 @@
         "path_count": 23,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -1285,6 +1334,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=23)"
@@ -1296,7 +1346,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:03:07.8610719Z"
+      "last_discovered_utc": "2026-06-28T04:50:08.1453144Z"
     },
     {
       "lab_id": "ignite25-LAB515",
@@ -1332,7 +1382,8 @@
         "path_count": 66,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": true
       },
       "services_used": [
         "Azure OpenAI",
@@ -1341,6 +1392,7 @@
         "Agent Framework"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "human_assisted",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -1353,7 +1405,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:03:13.4175010Z"
+      "last_discovered_utc": "2026-06-28T04:50:13.7036574Z"
     },
     {
       "lab_id": "ignite25-LAB516",
@@ -1386,7 +1438,8 @@
         "path_count": 161,
         "default_branch": "main",
         "latest_release_tag": "msignite2025-v1.0",
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -1394,6 +1447,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=161)"
@@ -1405,7 +1459,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:03:18.7255425Z"
+      "last_discovered_utc": "2026-06-28T04:50:18.7826211Z"
     },
     {
       "lab_id": "ignite25-LAB517",
@@ -1438,7 +1492,8 @@
         "path_count": 42,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
@@ -1448,6 +1503,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Bicep, Python) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -1459,7 +1515,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:03:23.5835086Z"
+      "last_discovered_utc": "2026-06-28T04:50:23.6004182Z"
     },
     {
       "lab_id": "ignite25-LAB518",
@@ -1489,7 +1545,8 @@
         "path_count": 33,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -1498,6 +1555,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=33)"
@@ -1509,7 +1567,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:03:28.3847961Z"
+      "last_discovered_utc": "2026-06-28T04:50:29.4742120Z"
     },
     {
       "lab_id": "ignite25-LAB519",
@@ -1539,7 +1597,8 @@
         "path_count": 26,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
@@ -1547,6 +1606,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=26)"
@@ -1558,7 +1618,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:03:33.3263345Z"
+      "last_discovered_utc": "2026-06-28T04:50:35.1386190Z"
     },
     {
       "lab_id": "ignite25-LAB571",
@@ -1588,13 +1648,15 @@
         "path_count": 40,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=40)"
@@ -1606,7 +1668,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:03:38.0602412Z"
+      "last_discovered_utc": "2026-06-28T04:50:39.7603232Z"
     },
     {
       "lab_id": "ignite25-LAB596",
@@ -1636,12 +1698,14 @@
         "path_count": 19,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=19)"
@@ -1653,7 +1717,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:03:43.1089209Z"
+      "last_discovered_utc": "2026-06-28T04:50:45.3333944Z"
     },
     {
       "lab_id": "ignite25-LAB598",
@@ -1683,12 +1747,14 @@
         "path_count": 14,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=14)"
@@ -1700,7 +1766,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:03:47.7040581Z"
+      "last_discovered_utc": "2026-06-28T04:50:50.5975653Z"
     },
     {
       "lab_id": "ignite25-PREL13",
@@ -1735,7 +1801,8 @@
         "path_count": 229,
         "default_branch": "main",
         "latest_release_tag": "msignite2025-v1.0",
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
@@ -1744,6 +1811,7 @@
         "Agent Framework"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Bicep, Jupyter Notebook, Python, Shell) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -1755,7 +1823,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:03:52.9676413Z"
+      "last_discovered_utc": "2026-06-28T04:50:55.6612002Z"
     },
     {
       "lab_id": "ignite25-PREL15",
@@ -1787,7 +1855,8 @@
         "path_count": 48,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -1795,6 +1864,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=48)"
@@ -1806,7 +1876,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:03:58.3829281Z"
+      "last_discovered_utc": "2026-06-28T04:51:00.8946730Z"
     },
     {
       "lab_id": "ignite25-PREL16",
@@ -1836,7 +1906,8 @@
         "path_count": 27,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -1845,6 +1916,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=27)"
@@ -1856,7 +1928,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:04:04.7853626Z"
+      "last_discovered_utc": "2026-06-28T04:51:06.2757700Z"
     },
     {
       "lab_id": "ignite25-PREL19",
@@ -1888,13 +1960,15 @@
         "path_count": 37,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure Key Vault",
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=37)"
@@ -1906,7 +1980,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:04:09.9022257Z"
+      "last_discovered_utc": "2026-06-28T04:51:11.4193897Z"
     },
     {
       "lab_id": "ignite25-LAB500",
@@ -1936,12 +2010,14 @@
         "path_count": 37,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=37)"
@@ -1953,7 +2029,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:04:15.1998826Z"
+      "last_discovered_utc": "2026-06-28T04:51:16.2063089Z"
     },
     {
       "lab_id": "ignite25-LAB502",
@@ -1983,7 +2059,8 @@
         "path_count": 77,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
@@ -1992,6 +2069,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=77)"
@@ -2003,7 +2081,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:04:21.0314291Z"
+      "last_discovered_utc": "2026-06-28T04:51:21.1500833Z"
     },
     {
       "lab_id": "ignite25-LAB503",
@@ -2033,13 +2111,15 @@
         "path_count": 30,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure SQL",
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=30)"
@@ -2051,7 +2131,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:04:26.2428152Z"
+      "last_discovered_utc": "2026-06-28T04:51:26.1006014Z"
     },
     {
       "lab_id": "ignite25-LAB504",
@@ -2081,7 +2161,8 @@
         "path_count": 33,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
@@ -2089,6 +2170,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=33)"
@@ -2100,7 +2182,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:04:31.2477763Z"
+      "last_discovered_utc": "2026-06-28T04:51:31.0925881Z"
     },
     {
       "lab_id": "ignite25-LAB505",
@@ -2130,13 +2212,15 @@
         "path_count": 31,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure PostgreSQL",
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=31)"
@@ -2148,7 +2232,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:04:36.8416212Z"
+      "last_discovered_utc": "2026-06-28T04:51:36.1695196Z"
     },
     {
       "lab_id": "ignite25-LAB520",
@@ -2178,7 +2262,8 @@
         "path_count": 44,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure PostgreSQL",
@@ -2187,6 +2272,7 @@
         "Application Insights"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=44)"
@@ -2198,7 +2284,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:04:43.2027579Z"
+      "last_discovered_utc": "2026-06-28T04:51:42.2018993Z"
     },
     {
       "lab_id": "ignite25-LAB597",
@@ -2231,12 +2317,14 @@
         "path_count": 42,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=42)"
@@ -2248,7 +2336,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:04:48.0053124Z"
+      "last_discovered_utc": "2026-06-28T04:51:47.0521996Z"
     },
     {
       "lab_id": "ignite25-PREL20",
@@ -2281,13 +2369,15 @@
         "path_count": 60,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
         "Model Context Protocol"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Bicep, PowerShell) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -2299,7 +2389,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:04:53.3647775Z"
+      "last_discovered_utc": "2026-06-28T04:51:51.8915251Z"
     },
     {
       "lab_id": "ignite25-LAB530",
@@ -2329,13 +2419,15 @@
         "path_count": 249,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure SQL",
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=249)"
@@ -2347,7 +2439,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:04:57.8898980Z"
+      "last_discovered_utc": "2026-06-28T04:51:56.7289898Z"
     },
     {
       "lab_id": "ignite25-LAB531",
@@ -2385,12 +2477,14 @@
         "path_count": 213,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Fabric"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (CSS, HTML, JavaScript, PLpgSQL, Python, Shell, TypeScript) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -2402,7 +2496,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:05:03.5334654Z"
+      "last_discovered_utc": "2026-06-28T04:52:02.0402061Z"
     },
     {
       "lab_id": "ignite25-LAB532",
@@ -2432,7 +2526,8 @@
         "path_count": 119,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
@@ -2440,6 +2535,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=119)"
@@ -2451,7 +2547,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:05:08.4108965Z"
+      "last_discovered_utc": "2026-06-28T04:52:06.7602163Z"
     },
     {
       "lab_id": "ignite25-LAB533",
@@ -2483,7 +2579,8 @@
         "path_count": 949,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -2492,6 +2589,7 @@
         "Microsoft Fabric"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=949)"
@@ -2503,7 +2601,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:05:13.7203261Z"
+      "last_discovered_utc": "2026-06-28T04:52:12.2506138Z"
     },
     {
       "lab_id": "ignite25-LAB534",
@@ -2541,7 +2639,8 @@
         "path_count": 176,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
@@ -2551,6 +2650,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (C#, CSS, HTML, JavaScript, Jupyter Notebook, Python, TSQL) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -2562,7 +2662,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:05:18.9657634Z"
+      "last_discovered_utc": "2026-06-28T04:52:17.1944963Z"
     },
     {
       "lab_id": "ignite25-LAB535",
@@ -2595,7 +2695,8 @@
         "path_count": 178,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
@@ -2603,6 +2704,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=178)"
@@ -2614,7 +2716,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:05:23.8001535Z"
+      "last_discovered_utc": "2026-06-28T04:52:22.5797844Z"
     },
     {
       "lab_id": "ignite25-PREL14",
@@ -2644,13 +2746,15 @@
         "path_count": 157,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Fabric",
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=157)"
@@ -2662,7 +2766,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:05:28.3733990Z"
+      "last_discovered_utc": "2026-06-28T04:52:28.3970415Z"
     },
     {
       "lab_id": "ignite25-LAB540",
@@ -2692,10 +2796,12 @@
         "path_count": 33,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=33)"
@@ -2707,7 +2813,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:05:32.9081293Z"
+      "last_discovered_utc": "2026-06-28T04:52:33.2035797Z"
     },
     {
       "lab_id": "ignite25-LAB541",
@@ -2740,13 +2846,15 @@
         "path_count": 57,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
         "Model Context Protocol"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Bicep, PowerShell) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -2758,7 +2866,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:05:38.1512577Z"
+      "last_discovered_utc": "2026-06-28T04:52:38.2220809Z"
     },
     {
       "lab_id": "ignite25-LAB542",
@@ -2788,13 +2896,15 @@
         "path_count": 60,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=60)"
@@ -2806,7 +2916,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:05:42.7469504Z"
+      "last_discovered_utc": "2026-06-28T04:52:43.2538154Z"
     },
     {
       "lab_id": "ignite25-LAB543",
@@ -2839,13 +2949,15 @@
         "path_count": 52,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
         "Model Context Protocol"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Bicep, PowerShell) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -2857,7 +2969,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:05:48.4874953Z"
+      "last_discovered_utc": "2026-06-28T04:52:47.5679319Z"
     },
     {
       "lab_id": "ignite25-LAB546",
@@ -2887,12 +2999,14 @@
         "path_count": 30,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=30)"
@@ -2904,7 +3018,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:05:54.2713201Z"
+      "last_discovered_utc": "2026-06-28T04:52:52.0234920Z"
     },
     {
       "lab_id": "ignite25-LAB549",
@@ -2934,12 +3048,14 @@
         "path_count": 27,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=27)"
@@ -2951,7 +3067,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:05:59.1398847Z"
+      "last_discovered_utc": "2026-06-28T04:52:56.7121441Z"
     },
     {
       "lab_id": "ignite25-LAB544",
@@ -2981,13 +3097,15 @@
         "path_count": 27,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=27)"
@@ -2999,7 +3117,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:06:04.0960765Z"
+      "last_discovered_utc": "2026-06-28T04:53:01.4990795Z"
     },
     {
       "lab_id": "ignite25-LAB550",
@@ -3029,13 +3147,15 @@
         "path_count": 30,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=30)"
@@ -3047,7 +3167,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:06:08.8804281Z"
+      "last_discovered_utc": "2026-06-28T04:53:07.2299361Z"
     },
     {
       "lab_id": "ignite25-LAB551",
@@ -3077,13 +3197,15 @@
         "path_count": 31,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=31)"
@@ -3095,7 +3217,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:06:13.4800922Z"
+      "last_discovered_utc": "2026-06-28T04:53:11.9674437Z"
     },
     {
       "lab_id": "ignite25-LAB545",
@@ -3125,10 +3247,12 @@
         "path_count": 44,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=44)"
@@ -3140,7 +3264,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:06:19.1827905Z"
+      "last_discovered_utc": "2026-06-28T04:53:17.1303958Z"
     },
     {
       "lab_id": "ignite25-LAB547",
@@ -3170,10 +3294,12 @@
         "path_count": 43,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=43)"
@@ -3185,7 +3311,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:06:24.7916426Z"
+      "last_discovered_utc": "2026-06-28T04:53:22.9424839Z"
     },
     {
       "lab_id": "ignite25-LAB548",
@@ -3215,10 +3341,12 @@
         "path_count": 46,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=46)"
@@ -3230,7 +3358,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:06:29.8756540Z"
+      "last_discovered_utc": "2026-06-28T04:53:27.6087585Z"
     },
     {
       "lab_id": "ignite25-PREL18",
@@ -3260,12 +3388,14 @@
         "path_count": 42,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=42)"
@@ -3277,7 +3407,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:06:34.9244997Z"
+      "last_discovered_utc": "2026-06-28T04:53:32.9389798Z"
     },
     {
       "lab_id": "ignite25-LAB560",
@@ -3310,12 +3440,14 @@
         "path_count": 73,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (JavaScript, TypeSpec) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -3327,7 +3459,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:06:39.4303915Z"
+      "last_discovered_utc": "2026-06-28T04:53:37.9168723Z"
     },
     {
       "lab_id": "ignite25-LAB562",
@@ -3357,13 +3489,15 @@
         "path_count": 30,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=30)"
@@ -3375,7 +3509,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:06:44.8995472Z"
+      "last_discovered_utc": "2026-06-28T04:53:42.7326192Z"
     },
     {
       "lab_id": "ignite25-LAB564",
@@ -3405,7 +3539,8 @@
         "path_count": 77,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
@@ -3413,6 +3548,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=77)"
@@ -3424,7 +3560,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:06:49.3938578Z"
+      "last_discovered_utc": "2026-06-28T04:53:47.2756781Z"
     },
     {
       "lab_id": "ignite25-LAB565",
@@ -3456,7 +3592,8 @@
         "path_count": 53,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
@@ -3464,6 +3601,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Bicep) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -3475,7 +3613,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:06:54.4640070Z"
+      "last_discovered_utc": "2026-06-28T04:53:52.2814683Z"
     },
     {
       "lab_id": "ignite25-LAB568",
@@ -3505,12 +3643,14 @@
         "path_count": 30,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=30)"
@@ -3522,7 +3662,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:06:59.5066548Z"
+      "last_discovered_utc": "2026-06-28T04:53:56.8159897Z"
     },
     {
       "lab_id": "ignite25-LAB590",
@@ -3554,13 +3694,15 @@
         "path_count": 45,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
         "Model Context Protocol"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (TypeScript) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -3572,7 +3714,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:07:04.6276634Z"
+      "last_discovered_utc": "2026-06-28T04:54:01.7159183Z"
     },
     {
       "lab_id": "ignite25-PREL17",
@@ -3602,12 +3744,14 @@
         "path_count": 33,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=33)"
@@ -3619,7 +3763,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:07:09.8939873Z"
+      "last_discovered_utc": "2026-06-28T04:54:06.6489296Z"
     },
     {
       "lab_id": "ignite25-LAB570",
@@ -3649,13 +3793,15 @@
         "path_count": 21,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=21)"
@@ -3667,7 +3813,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:07:14.6046676Z"
+      "last_discovered_utc": "2026-06-28T04:54:11.4463596Z"
     },
     {
       "lab_id": "ignite25-LAB572",
@@ -3697,12 +3843,14 @@
         "path_count": 23,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=23)"
@@ -3714,7 +3862,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:07:20.0575214Z"
+      "last_discovered_utc": "2026-06-28T04:54:16.7765832Z"
     },
     {
       "lab_id": "ignite25-LAB595",
@@ -3744,13 +3892,15 @@
         "path_count": 76,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=76)"
@@ -3762,7 +3912,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:07:24.8503245Z"
+      "last_discovered_utc": "2026-06-28T04:54:21.5561520Z"
     },
     {
       "lab_id": "ignite25-LAB580",
@@ -3792,12 +3942,14 @@
         "path_count": 23,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=23)"
@@ -3809,7 +3961,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:07:29.9467568Z"
+      "last_discovered_utc": "2026-06-28T04:54:26.9519592Z"
     },
     {
       "lab_id": "ignite25-LAB581",
@@ -3839,12 +3991,14 @@
         "path_count": 23,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=23)"
@@ -3856,7 +4010,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:07:34.8519291Z"
+      "last_discovered_utc": "2026-06-28T04:54:33.2640462Z"
     },
     {
       "lab_id": "ignite25-LAB582",
@@ -3886,10 +4040,12 @@
         "path_count": 24,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=24)"
@@ -3901,7 +4057,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:07:39.3022461Z"
+      "last_discovered_utc": "2026-06-28T04:54:37.8427816Z"
     },
     {
       "lab_id": "ignite25-LAB583",
@@ -3931,13 +4087,15 @@
         "path_count": 199,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
         "Model Context Protocol"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=199)"
@@ -3949,7 +4107,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:07:45.1657709Z"
+      "last_discovered_utc": "2026-06-28T04:54:43.1975735Z"
     },
     {
       "lab_id": "ignite25-LAB584",
@@ -3981,10 +4139,12 @@
         "path_count": 56,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (C#) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -3996,7 +4156,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:07:50.9286283Z"
+      "last_discovered_utc": "2026-06-28T04:54:47.7224776Z"
     },
     {
       "lab_id": "ignite25-LAB585",
@@ -4028,12 +4188,14 @@
         "path_count": 86,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (C#) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -4045,7 +4207,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:07:55.7986004Z"
+      "last_discovered_utc": "2026-06-28T04:54:52.9353665Z"
     },
     {
       "lab_id": "ignite25-LAB587",
@@ -4075,12 +4237,14 @@
         "path_count": 23,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=23)"
@@ -4092,7 +4256,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:08:01.3707945Z"
+      "last_discovered_utc": "2026-06-28T04:54:58.1866324Z"
     },
     {
       "lab_id": "aitour26-WRK523",
@@ -4122,13 +4286,15 @@
         "path_count": 33,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
         "Microsoft Foundry"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=33)"
@@ -4140,7 +4306,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:08:07.0058363Z"
+      "last_discovered_utc": "2026-06-28T04:55:03.3924258Z"
     },
     {
       "lab_id": "aitour26-WRK532",
@@ -4172,7 +4338,8 @@
         "path_count": 358,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -4180,6 +4347,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Python) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -4191,7 +4359,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:08:12.1551573Z"
+      "last_discovered_utc": "2026-06-28T04:55:08.9002575Z"
     },
     {
       "lab_id": "aitour26-WRK540",
@@ -4231,7 +4399,8 @@
         "path_count": 307,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -4241,6 +4410,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Bicep, C#, CSS, Dockerfile, HTML, JavaScript, PowerShell, Python, Shell) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -4252,7 +4422,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:08:16.8152099Z"
+      "last_discovered_utc": "2026-06-28T04:55:14.3398553Z"
     },
     {
       "lab_id": "aitour26-WRK541",
@@ -4288,13 +4458,15 @@
         "path_count": 167,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
         "Microsoft Foundry"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (C#, Dockerfile, Makefile, Python, Smalltalk) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -4306,7 +4478,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:08:21.2463922Z"
+      "last_discovered_utc": "2026-06-28T04:55:18.6801153Z"
     },
     {
       "lab_id": "aitour26-WRK542",
@@ -4342,7 +4514,8 @@
         "path_count": 284,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -4350,6 +4523,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Bicep, Dockerfile, PowerShell, Python, Shell) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -4361,7 +4535,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:08:26.5066004Z"
+      "last_discovered_utc": "2026-06-28T04:55:23.8350878Z"
     },
     {
       "lab_id": "aitour26-WRK560",
@@ -4391,7 +4565,8 @@
         "path_count": 135,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -4401,6 +4576,7 @@
         "Microsoft Fabric"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=135)"
@@ -4412,7 +4588,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:08:31.1236814Z"
+      "last_discovered_utc": "2026-06-28T04:55:28.5978583Z"
     },
     {
       "lab_id": "aitour26-WRK570",
@@ -4457,7 +4633,8 @@
         "path_count": 491,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -4465,6 +4642,7 @@
         "Azure Kubernetes Service"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "unattended",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -4478,7 +4656,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:08:36.5830834Z"
+      "last_discovered_utc": "2026-06-28T04:55:35.0242654Z"
     },
     {
       "lab_id": "learn-azure-openai-rag-workshop",
@@ -4515,7 +4693,8 @@
         "path_count": 268,
         "default_branch": "main",
         "latest_release_tag": "latest",
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -4524,6 +4703,7 @@
         "Azure Container Apps"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "unattended",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -4537,7 +4717,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:08:52.7636135Z"
+      "last_discovered_utc": "2026-06-28T04:55:52.9429737Z"
     },
     {
       "lab_id": "learn-mslearn-ai-fundamentals",
@@ -4570,12 +4750,14 @@
         "path_count": 130,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Python, Shell) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -4587,7 +4769,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:08:55.8847024Z"
+      "last_discovered_utc": "2026-06-28T04:55:56.0940523Z"
     },
     {
       "lab_id": "learn-mslearn-mlops",
@@ -4621,10 +4803,12 @@
         "path_count": 84,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Jupyter Notebook, Python, Shell) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -4636,7 +4820,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:08:58.9491977Z"
+      "last_discovered_utc": "2026-06-28T04:55:59.1917476Z"
     },
     {
       "lab_id": "learn-mslearn-ai-agents",
@@ -4669,10 +4853,12 @@
         "path_count": 134,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Python, Shell) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -4684,7 +4870,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:09:02.4519776Z"
+      "last_discovered_utc": "2026-06-28T04:56:02.3010956Z"
     },
     {
       "lab_id": "learn-mslearn-ai-language",
@@ -4716,10 +4902,12 @@
         "path_count": 90,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Python) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -4731,7 +4919,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:09:05.8423419Z"
+      "last_discovered_utc": "2026-06-28T04:56:05.3003359Z"
     },
     {
       "lab_id": "learn-mslearn-agent-quickstart",
@@ -4766,12 +4954,14 @@
         "path_count": 50,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (CSS, HTML, JavaScript, Python) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -4783,7 +4973,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:09:09.4271993Z"
+      "last_discovered_utc": "2026-06-28T04:56:08.8012172Z"
     },
     {
       "lab_id": "learn-mslearn-fabric",
@@ -4816,12 +5006,14 @@
         "path_count": 549,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Fabric"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=549)"
@@ -4833,7 +5025,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:09:13.2089480Z"
+      "last_discovered_utc": "2026-06-28T04:56:12.0346718Z"
     },
     {
       "lab_id": "learn-mslearn-azure-ai",
@@ -4872,10 +5064,12 @@
         "path_count": 700,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (CSS, Dockerfile, HTML, JavaScript, PowerShell, Python, SCSS, Shell) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -4887,7 +5081,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:09:16.6580084Z"
+      "last_discovered_utc": "2026-06-28T04:56:15.7924682Z"
     },
     {
       "lab_id": "learn-mslearn-ai-concepts",
@@ -4917,10 +5111,12 @@
         "path_count": 48,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=48)"
@@ -4932,7 +5128,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:09:19.7945682Z"
+      "last_discovered_utc": "2026-06-28T04:56:19.3681837Z"
     },
     {
       "lab_id": "learn-dp-300-database-administrator",
@@ -4966,12 +5162,14 @@
         "path_count": 66,
         "default_branch": "master",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure SQL"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Bicep, PowerShell, TSQL) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -4983,7 +5181,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:09:23.4699417Z"
+      "last_discovered_utc": "2026-06-28T04:56:22.4780023Z"
     },
     {
       "lab_id": "learn-mslearn-ai-studio",
@@ -5015,10 +5213,12 @@
         "path_count": 62,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Python) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -5030,7 +5230,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:09:27.0316986Z"
+      "last_discovered_utc": "2026-06-28T04:56:26.8614261Z"
     },
     {
       "lab_id": "learn-Cowork-Manager-Workshop",
@@ -5060,10 +5260,12 @@
         "path_count": 17,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=17)"
@@ -5075,7 +5277,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:09:30.4963841Z"
+      "last_discovered_utc": "2026-06-28T04:56:30.3534533Z"
     },
     {
       "lab_id": "learn-eShopOnWeb",
@@ -5113,12 +5315,14 @@
         "path_count": 619,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure Key Vault"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "unattended",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -5132,7 +5336,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:09:33.7675060Z"
+      "last_discovered_utc": "2026-06-28T04:56:34.7844315Z"
     },
     {
       "lab_id": "learn-build-your-first-agent-with-azure-ai-agent-service-workshop",
@@ -5169,12 +5373,14 @@
         "path_count": 156,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Bicep, C#, Dockerfile, PowerShell, Python, Shell) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -5186,7 +5392,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:09:37.5348934Z"
+      "last_discovered_utc": "2026-06-28T04:56:38.0915103Z"
     },
     {
       "lab_id": "learn-microsoft-foundry-e2e-agent-observability-workshop",
@@ -5219,12 +5425,14 @@
         "path_count": 139,
         "default_branch": "main",
         "latest_release_tag": "mvp-summit-2026",
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=139)"
@@ -5236,7 +5444,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:09:40.8316934Z"
+      "last_discovered_utc": "2026-06-28T04:56:41.7733865Z"
     },
     {
       "lab_id": "learn-mslearn-github-copilot-dev",
@@ -5272,10 +5480,12 @@
         "path_count": 693,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Batchfile, C#, CSS, HTML, Python) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -5287,7 +5497,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:09:44.5466153Z"
+      "last_discovered_utc": "2026-06-28T04:56:45.5677371Z"
     },
     {
       "lab_id": "learn-mslearn-copilot",
@@ -5317,10 +5527,12 @@
         "path_count": 45,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=45)"
@@ -5332,7 +5544,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:09:48.5555457Z"
+      "last_discovered_utc": "2026-06-28T04:56:49.2050843Z"
     },
     {
       "lab_id": "learn-mslearn-devops",
@@ -5367,10 +5579,12 @@
         "path_count": 215,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "azd",
+      "deploy_mode": "unattended",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (sre-agent-src/azure.yaml) → azd up path",
@@ -5383,7 +5597,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:09:52.0006249Z"
+      "last_discovered_utc": "2026-06-28T04:56:53.3797666Z"
     },
     {
       "lab_id": "learn-mslearn-sql-developer",
@@ -5415,10 +5629,12 @@
         "path_count": 24,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=24)"
@@ -5430,7 +5646,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:09:55.0871056Z"
+      "last_discovered_utc": "2026-06-28T04:56:56.5894788Z"
     },
     {
       "lab_id": "learn-mslearn-copilotstudio",
@@ -5460,10 +5676,12 @@
         "path_count": 104,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=104)"
@@ -5475,7 +5693,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:09:58.1926131Z"
+      "last_discovered_utc": "2026-06-28T04:57:00.1130597Z"
     },
     {
       "lab_id": "learn-Learn-Microsoft-Agent-Framework-with-Foundry-ZavaShop-Supply-Chain-Workshop",
@@ -5508,7 +5726,8 @@
         "path_count": 173,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
@@ -5516,6 +5735,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (C#, Python) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -5527,7 +5747,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:10:01.9345936Z"
+      "last_discovered_utc": "2026-06-28T04:57:06.4512090Z"
     },
     {
       "lab_id": "learn-multi-agent-workshop",
@@ -5561,7 +5781,8 @@
         "path_count": 76,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": true
       },
       "services_used": [
         "Azure OpenAI",
@@ -5570,6 +5791,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "human_assisted",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -5582,7 +5804,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:10:06.1822877Z"
+      "last_discovered_utc": "2026-06-28T04:57:11.2863796Z"
     },
     {
       "lab_id": "learn-mslearn-ai-information-extraction",
@@ -5616,10 +5838,12 @@
         "path_count": 98,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Batchfile, Python, Shell) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -5631,7 +5855,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:10:09.2166677Z"
+      "last_discovered_utc": "2026-06-28T04:57:14.7823298Z"
     },
     {
       "lab_id": "learn-workshop-library",
@@ -5672,7 +5896,8 @@
         "path_count": 1199,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -5681,6 +5906,7 @@
         "Azure Functions"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (C#, CSS, Dockerfile, HTML, JavaScript, Jupyter Notebook, Python, R, Shell, TypeScript) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -5692,7 +5918,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:10:12.6798683Z"
+      "last_discovered_utc": "2026-06-28T04:57:18.6415044Z"
     },
     {
       "lab_id": "learn-DP-900T00A-Azure-Data-Fundamentals",
@@ -5722,10 +5948,12 @@
         "path_count": 132,
         "default_branch": "master",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=132)"
@@ -5737,7 +5965,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:10:15.7613929Z"
+      "last_discovered_utc": "2026-06-28T04:57:21.7997245Z"
     },
     {
       "lab_id": "learn-llmops-workshop",
@@ -5772,12 +6000,14 @@
         "path_count": 189,
         "default_branch": "development",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=189)"
@@ -5789,7 +6019,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:10:19.9296312Z"
+      "last_discovered_utc": "2026-06-28T04:57:25.2190667Z"
     },
     {
       "lab_id": "learn-serverless-python-labs",
@@ -5819,10 +6049,12 @@
         "path_count": 3,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=3)"
@@ -5834,7 +6066,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:10:23.5310507Z"
+      "last_discovered_utc": "2026-06-28T04:57:29.6710515Z"
     },
     {
       "lab_id": "learn-Fabric_Workshops",
@@ -5864,12 +6096,14 @@
         "path_count": 42,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Fabric"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=42)"
@@ -5881,7 +6115,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:10:27.6142409Z"
+      "last_discovered_utc": "2026-06-28T04:57:32.9985162Z"
     },
     {
       "lab_id": "learn-rag_workshop",
@@ -5915,7 +6149,8 @@
         "path_count": 52,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -5925,6 +6160,7 @@
         "Azure PostgreSQL"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Dockerfile, Jupyter Notebook, Python) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -5936,7 +6172,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:10:30.9666117Z"
+      "last_discovered_utc": "2026-06-28T04:57:36.7413259Z"
     },
     {
       "lab_id": "learn-mslearn-databricks",
@@ -5969,10 +6205,12 @@
         "path_count": 410,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (PowerShell, Python) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -5984,7 +6222,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:10:35.0767561Z"
+      "last_discovered_utc": "2026-06-28T04:57:41.0212729Z"
     },
     {
       "lab_id": "learn-modernize-monolith-workshop",
@@ -6022,7 +6260,8 @@
         "path_count": 1375,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure AI Services",
@@ -6030,6 +6269,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (ASP.NET, C#, CSS, HTML, JavaScript, PowerShell, Shell) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -6041,7 +6281,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:10:39.8363514Z"
+      "last_discovered_utc": "2026-06-28T04:57:44.8113440Z"
     },
     {
       "lab_id": "learn-mslearn-azure-documentdb",
@@ -6071,10 +6311,12 @@
         "path_count": 25,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=25)"
@@ -6086,7 +6328,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:10:44.2032439Z"
+      "last_discovered_utc": "2026-06-28T04:57:47.8826642Z"
     },
     {
       "lab_id": "learn-mslearn-ai-semantic-kernel",
@@ -6119,12 +6361,14 @@
         "path_count": 67,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (C#, Python) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -6136,7 +6380,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:10:47.5523390Z"
+      "last_discovered_utc": "2026-06-28T04:57:51.0169816Z"
     },
     {
       "lab_id": "learn-Hosted_Agents_Workshop_dotNET",
@@ -6175,7 +6419,8 @@
         "path_count": 148,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
@@ -6183,6 +6428,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "unattended",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -6196,7 +6442,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:10:50.6998302Z"
+      "last_discovered_utc": "2026-06-28T04:57:55.6620411Z"
     },
     {
       "lab_id": "learn-github-copilot-vibe-coding-workshop",
@@ -6235,12 +6481,14 @@
         "path_count": 530,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Model Context Protocol"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (C#, CSS, Dockerfile, HTML, Java, JavaScript, Python, Shell) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -6252,7 +6500,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:10:54.0053926Z"
+      "last_discovered_utc": "2026-06-28T04:57:59.1661789Z"
     },
     {
       "lab_id": "learn-apps-agents-workshop",
@@ -6282,10 +6530,12 @@
         "path_count": 250,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=250)"
@@ -6297,7 +6547,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:10:57.8840231Z"
+      "last_discovered_utc": "2026-06-28T04:58:02.6106941Z"
     },
     {
       "lab_id": "learn-sql-in-fabric-ai-embeddings-workshop",
@@ -6327,7 +6577,8 @@
         "path_count": 193,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -6335,6 +6586,7 @@
         "Microsoft Fabric"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=193)"
@@ -6346,7 +6598,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:11:01.3981728Z"
+      "last_discovered_utc": "2026-06-28T04:58:06.1634560Z"
     },
     {
       "lab_id": "learn-azure-sql-db-developers-workshop",
@@ -6385,7 +6637,8 @@
         "path_count": 370,
         "default_branch": "main",
         "latest_release_tag": "v1.8",
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure AI Services",
@@ -6393,6 +6646,7 @@
         "Azure Functions"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (C#, CSS, HTML, JavaScript, Shell, SourcePawn, TSQL, Vue) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -6404,7 +6658,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:11:05.0353496Z"
+      "last_discovered_utc": "2026-06-28T04:58:09.7184943Z"
     },
     {
       "lab_id": "learn-mcp-workshop-dotnet",
@@ -6441,13 +6695,15 @@
         "path_count": 267,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure Container Apps",
         "Model Context Protocol"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "unattended",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (complete/azure.yaml) → azd up path",
@@ -6460,7 +6716,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:11:09.4233041Z"
+      "last_discovered_utc": "2026-06-28T04:58:13.6421248Z"
     },
     {
       "lab_id": "learn-SQL-db-in-Fabric-Workshop",
@@ -6494,7 +6750,8 @@
         "path_count": 102,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -6502,6 +6759,7 @@
         "Microsoft Fabric"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (JavaScript, Jupyter Notebook, TSQL) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -6513,7 +6771,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:11:13.5929348Z"
+      "last_discovered_utc": "2026-06-28T04:58:17.0646880Z"
     },
     {
       "lab_id": "learn-mslearn-ai-vision",
@@ -6545,10 +6803,12 @@
         "path_count": 47,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Python) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -6560,7 +6820,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:11:16.6725341Z"
+      "last_discovered_utc": "2026-06-28T04:58:21.0599591Z"
     },
     {
       "lab_id": "learn-mslearn-sql-dev",
@@ -6590,12 +6850,14 @@
         "path_count": 31,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure SQL"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=31)"
@@ -6607,7 +6869,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:11:19.6865100Z"
+      "last_discovered_utc": "2026-06-28T04:58:24.7542498Z"
     },
     {
       "lab_id": "learn-mslearn-sql-migration",
@@ -6637,12 +6899,14 @@
         "path_count": 38,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure SQL"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=38)"
@@ -6654,7 +6918,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:11:22.6897643Z"
+      "last_discovered_utc": "2026-06-28T04:58:29.2812181Z"
     },
     {
       "lab_id": "learn-mslearn-cosmosdb-mongodb-vcore",
@@ -6692,10 +6956,12 @@
         "path_count": 169,
         "default_branch": "master",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Bicep, CSS, HTML, JavaScript, PowerShell, Python, SCSS) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -6707,7 +6973,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:11:26.1627487Z"
+      "last_discovered_utc": "2026-06-28T04:58:32.7464508Z"
     },
     {
       "lab_id": "learn-Cybersecurity-jobs-skills-workshop",
@@ -6739,10 +7005,12 @@
         "path_count": 57,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=57)"
@@ -6754,7 +7022,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:11:29.4315187Z"
+      "last_discovered_utc": "2026-06-28T04:58:37.3886062Z"
     },
     {
       "lab_id": "learn-hands-on-lab-platform-engineering-for-devs",
@@ -6788,10 +7056,12 @@
         "path_count": 98,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "azd",
+      "deploy_mode": "unattended",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path"
@@ -6803,7 +7073,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:11:32.6643821Z"
+      "last_discovered_utc": "2026-06-28T04:58:41.7080126Z"
     },
     {
       "lab_id": "learn-azure_pg_dev_workshop",
@@ -6847,7 +7117,8 @@
         "path_count": 2104,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure PostgreSQL",
@@ -6855,6 +7126,7 @@
         "Azure Functions"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Bicep, Blade, C#, Dockerfile, HTML, Java, JavaScript, Jupyter Notebook, Mustache, PHP, PowerShell, Python, Shell) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -6866,7 +7138,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:11:36.5099659Z"
+      "last_discovered_utc": "2026-06-28T04:58:45.3239214Z"
     },
     {
       "lab_id": "learn-responsible-ai-workshop",
@@ -6901,10 +7173,12 @@
         "path_count": 219,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Dockerfile, Jupyter Notebook, PowerShell, Python) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -6916,7 +7190,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:11:40.3880435Z"
+      "last_discovered_utc": "2026-06-28T04:58:49.3754167Z"
     },
     {
       "lab_id": "learn-multi-agent-orchestration-workshop",
@@ -6949,7 +7223,8 @@
         "path_count": 1024,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
@@ -6957,6 +7232,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "unattended",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (samples/01-sequential-pattern/complete/azure.yaml) → azd up path",
@@ -6969,7 +7245,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:11:44.8001051Z"
+      "last_discovered_utc": "2026-06-28T04:58:55.0885066Z"
     },
     {
       "lab_id": "learn-maf-workshop-in-a-day-ko",
@@ -7006,13 +7282,15 @@
         "path_count": 730,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Agent Framework",
         "Model Context Protocol"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "unattended",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -7025,7 +7303,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:11:49.0770019Z"
+      "last_discovered_utc": "2026-06-28T04:58:59.3660960Z"
     },
     {
       "lab_id": "learn-Agentic-Modernization-Workshop",
@@ -7058,12 +7336,14 @@
         "path_count": 83,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Model Context Protocol"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (C#, Java) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -7075,7 +7355,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:11:52.3482741Z"
+      "last_discovered_utc": "2026-06-28T04:59:03.2858362Z"
     },
     {
       "lab_id": "learn-hands-on-lab-agent-framework-with-microsoft-foundry",
@@ -7108,13 +7388,15 @@
         "path_count": 82,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Microsoft Foundry",
         "Agent Framework"
       ],
       "deploy_path": "terraform",
+      "deploy_mode": "n/a",
       "support_status": "partial",
       "support_reason": [
         "Terraform IaC (not azd) — manual / non-azd deploy"
@@ -7126,7 +7408,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:11:55.4995187Z"
+      "last_discovered_utc": "2026-06-28T04:59:06.7205182Z"
     },
     {
       "lab_id": "learn-spring-ai-azure-workshop",
@@ -7161,12 +7443,14 @@
         "path_count": 64,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Dockerfile, Java, Shell, Smalltalk) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -7178,7 +7462,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:11:59.3044493Z"
+      "last_discovered_utc": "2026-06-28T04:59:11.0133509Z"
     },
     {
       "lab_id": "learn-dp-data",
@@ -7208,10 +7492,12 @@
         "path_count": 10,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=10)"
@@ -7223,7 +7509,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:12:03.3939632Z"
+      "last_discovered_utc": "2026-06-28T04:59:14.9373750Z"
     },
     {
       "lab_id": "learn-Workshop-Interact-with-OpenAI-models",
@@ -7256,10 +7542,12 @@
         "path_count": 120,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (CSS, JavaScript) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -7271,7 +7559,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:12:06.7074568Z"
+      "last_discovered_utc": "2026-06-28T04:59:18.8494870Z"
     },
     {
       "lab_id": "learn-flashcards-workshop",
@@ -7301,13 +7589,15 @@
         "path_count": 87,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
         "Microsoft Fabric"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=87)"
@@ -7319,7 +7609,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:12:10.0232290Z"
+      "last_discovered_utc": "2026-06-28T04:59:22.6594727Z"
     },
     {
       "lab_id": "learn-mslearn-genaiops",
@@ -7352,10 +7642,12 @@
         "path_count": 94,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "azd",
+      "deploy_mode": "unattended",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -7368,7 +7660,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:12:13.7068907Z"
+      "last_discovered_utc": "2026-06-28T04:59:26.8371081Z"
     },
     {
       "lab_id": "learn-RAI-workshops",
@@ -7402,10 +7694,12 @@
         "path_count": 121,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Jinja, Jupyter Notebook, Python) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -7417,7 +7711,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:12:17.1219036Z"
+      "last_discovered_utc": "2026-06-28T04:59:31.0881174Z"
     },
     {
       "lab_id": "learn-AZ-120-Planning-and-Administering-Microsoft-Azure-for-SAP-Workloads",
@@ -7447,10 +7741,12 @@
         "path_count": 62,
         "default_branch": "master",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=62)"
@@ -7462,7 +7758,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:12:21.0508537Z"
+      "last_discovered_utc": "2026-06-28T04:59:34.5633120Z"
     },
     {
       "lab_id": "learn-mslearn-aml-design",
@@ -7492,10 +7788,12 @@
         "path_count": 215,
         "default_branch": "master",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=215)"
@@ -7507,7 +7805,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:12:24.8079175Z"
+      "last_discovered_utc": "2026-06-28T04:59:38.2468418Z"
     },
     {
       "lab_id": "learn-semantic-kernel-workshop",
@@ -7545,13 +7843,15 @@
         "path_count": 144,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
         "Model Context Protocol"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (CSS, HTML, JavaScript, Jupyter Notebook, Python, Shell, TypeScript) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -7563,7 +7863,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:12:28.5691737Z"
+      "last_discovered_utc": "2026-06-28T04:59:41.6100819Z"
     },
     {
       "lab_id": "learn-agent-framework-workshop",
@@ -7596,7 +7896,8 @@
         "path_count": 64,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -7606,6 +7907,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Jupyter Notebook, Python) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -7617,7 +7919,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:12:32.3025948Z"
+      "last_discovered_utc": "2026-06-28T04:59:44.8945324Z"
     },
     {
       "lab_id": "learn-mslearn-azure-developer",
@@ -7650,10 +7952,12 @@
         "path_count": 88,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (C#, SCSS) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -7665,7 +7969,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:12:36.8464163Z"
+      "last_discovered_utc": "2026-06-28T04:59:47.8896121Z"
     },
     {
       "lab_id": "learn-mslearn-postgresql",
@@ -7699,12 +8003,14 @@
         "path_count": 107,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure PostgreSQL"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Bicep, PLpgSQL, Python) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -7716,7 +8022,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:12:40.5847472Z"
+      "last_discovered_utc": "2026-06-28T04:59:51.5827861Z"
     },
     {
       "lab_id": "learn-sqlworkshops-sql2022workshop",
@@ -7750,12 +8056,14 @@
         "path_count": 237,
         "default_branch": "main",
         "latest_release_tag": "v1.0",
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure SQL"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=237)"
@@ -7767,7 +8075,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:12:44.1637689Z"
+      "last_discovered_utc": "2026-06-28T04:59:55.7737239Z"
     },
     {
       "lab_id": "learn-CompliancePartnerWorkshops",
@@ -7799,10 +8107,12 @@
         "path_count": 18,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=18)"
@@ -7814,7 +8124,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:12:47.6579525Z"
+      "last_discovered_utc": "2026-06-28T04:59:59.1051044Z"
     },
     {
       "lab_id": "learn-Azure-Stack-Hub-Foundation-Core",
@@ -7847,10 +8157,12 @@
         "path_count": 351,
         "default_branch": "master",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (C#, PowerShell) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -7862,7 +8174,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:12:51.4930816Z"
+      "last_discovered_utc": "2026-06-28T05:00:03.5395216Z"
     },
     {
       "lab_id": "learn-llmsecops-hands-on-lab",
@@ -7898,10 +8210,12 @@
         "path_count": 444,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Dockerfile, Jinja, Jupyter Notebook, PowerShell, Python) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -7913,7 +8227,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:12:55.5098217Z"
+      "last_discovered_utc": "2026-06-28T05:00:08.5156902Z"
     },
     {
       "lab_id": "learn-hands-on-lab-redis",
@@ -7951,10 +8265,12 @@
         "path_count": 231,
         "default_branch": "main",
         "latest_release_tag": "latest",
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "terraform",
+      "deploy_mode": "n/a",
       "support_status": "partial",
       "support_reason": [
         "Terraform IaC (not azd) — manual / non-azd deploy"
@@ -7966,7 +8282,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:12:59.4441743Z"
+      "last_discovered_utc": "2026-06-28T05:00:11.9128954Z"
     },
     {
       "lab_id": "learn-hands-on-lab-platform-engineering-for-ops",
@@ -8000,10 +8316,12 @@
         "path_count": 155,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "terraform",
+      "deploy_mode": "n/a",
       "support_status": "partial",
       "support_reason": [
         "Terraform IaC (not azd) — manual / non-azd deploy"
@@ -8015,7 +8333,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:13:03.4086831Z"
+      "last_discovered_utc": "2026-06-28T05:00:15.3312547Z"
     },
     {
       "lab_id": "learn-github-copilot-workshops-full",
@@ -8055,10 +8373,12 @@
         "path_count": 316,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "terraform",
+      "deploy_mode": "n/a",
       "support_status": "partial",
       "support_reason": [
         "Terraform IaC (not azd) — manual / non-azd deploy"
@@ -8070,7 +8390,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:13:07.1692078Z"
+      "last_discovered_utc": "2026-06-28T05:00:18.6172344Z"
     },
     {
       "lab_id": "learn-azure-openai-in-a-day-workshop",
@@ -8103,12 +8423,14 @@
         "path_count": 40,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Jupyter Notebook, Python) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -8120,7 +8442,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:13:10.5646468Z"
+      "last_discovered_utc": "2026-06-28T05:00:21.9341565Z"
     },
     {
       "lab_id": "learn-MSLearn-Develop-AI-Agents-with-Azure-OpenAI-and-Semantic-Kernel-SDK",
@@ -8153,10 +8475,12 @@
         "path_count": 22,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (C#, HTML) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -8168,7 +8492,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:13:13.5665120Z"
+      "last_discovered_utc": "2026-06-28T05:00:25.0520366Z"
     },
     {
       "lab_id": "learn-mslearn-develop-oop-csharp",
@@ -8200,10 +8524,12 @@
         "path_count": 1281,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (C#) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -8215,7 +8541,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:13:17.6362953Z"
+      "last_discovered_utc": "2026-06-28T05:00:29.0673925Z"
     },
     {
       "lab_id": "learn-github-copilot-workshops-labs",
@@ -8251,10 +8577,12 @@
         "path_count": 163,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Dockerfile, Java, Python, Shell, TSQL) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -8266,7 +8594,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:13:21.4296858Z"
+      "last_discovered_utc": "2026-06-28T05:00:32.7435993Z"
     },
     {
       "lab_id": "learn-MicrosoftEntra-Labs",
@@ -8296,10 +8624,12 @@
         "path_count": 17,
         "default_branch": "master",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=17)"
@@ -8311,7 +8641,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:13:25.3836896Z"
+      "last_discovered_utc": "2026-06-28T05:00:35.9453880Z"
     },
     {
       "lab_id": "learn-microsoft-agent-framework-with-aspire-workshop",
@@ -8341,10 +8671,12 @@
         "path_count": 1,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=1)"
@@ -8356,7 +8688,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:13:28.9014130Z"
+      "last_discovered_utc": "2026-06-28T05:00:40.1756013Z"
     },
     {
       "lab_id": "learn-agent-speed-skills",
@@ -8386,10 +8718,12 @@
         "path_count": 5,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=5)"
@@ -8401,7 +8735,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:13:32.1511179Z"
+      "last_discovered_utc": "2026-06-28T05:00:43.2372396Z"
     },
     {
       "lab_id": "learn-azure-openai-rag-workshop-template",
@@ -8439,12 +8773,14 @@
         "path_count": 112,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": true
       },
       "services_used": [
         "Azure OpenAI"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "human_assisted",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -8458,7 +8794,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:13:35.9092698Z"
+      "last_discovered_utc": "2026-06-28T05:00:47.1533409Z"
     },
     {
       "lab_id": "accelerators-real-time-intelligence-operations-solution-accelerator",
@@ -8495,7 +8831,8 @@
         "path_count": 221,
         "default_branch": "main",
         "latest_release_tag": "v1.3.5",
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": true
       },
       "services_used": [
         "Azure Container Apps",
@@ -8503,6 +8840,7 @@
         "Microsoft Fabric"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "human_assisted",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -8516,7 +8854,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:13:47.1434270Z"
+      "last_discovered_utc": "2026-06-28T05:00:58.3614111Z"
     },
     {
       "lab_id": "accelerators-content-processing-solution-accelerator",
@@ -8557,7 +8895,8 @@
         "path_count": 876,
         "default_branch": "main",
         "latest_release_tag": "v2.1.2",
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": true
       },
       "services_used": [
         "Azure OpenAI",
@@ -8570,6 +8909,7 @@
         "Agent Framework"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "human_assisted",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -8583,7 +8923,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:13:51.5458412Z"
+      "last_discovered_utc": "2026-06-28T05:01:02.5999449Z"
     },
     {
       "lab_id": "accelerators-Solution-Accelerators",
@@ -8618,10 +8958,12 @@
         "path_count": 184,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (CSS, HTML, JavaScript, TypeScript) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -8633,7 +8975,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:13:54.9983270Z"
+      "last_discovered_utc": "2026-06-28T05:01:05.8592310Z"
     },
     {
       "lab_id": "accelerators-chat-with-your-data-solution-accelerator",
@@ -8675,7 +9017,8 @@
         "path_count": 784,
         "default_branch": "main",
         "latest_release_tag": "v1.15.5",
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": true
       },
       "services_used": [
         "Azure OpenAI",
@@ -8690,6 +9033,7 @@
         "Application Insights"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "human_assisted",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -8703,7 +9047,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:13:59.3986511Z"
+      "last_discovered_utc": "2026-06-28T05:01:09.8834592Z"
     },
     {
       "lab_id": "accelerators-Document-Knowledge-Mining-Solution-Accelerator",
@@ -8746,7 +9090,8 @@
         "path_count": 960,
         "default_branch": "main",
         "latest_release_tag": "v1.9.0",
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -8761,6 +9106,7 @@
         "Azure App Service"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "unattended",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -8774,7 +9120,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:14:03.9531218Z"
+      "last_discovered_utc": "2026-06-28T05:01:14.3416587Z"
     },
     {
       "lab_id": "accelerators-Build-your-own-copilot-Solution-Accelerator",
@@ -8816,7 +9162,8 @@
         "path_count": 434,
         "default_branch": "main",
         "latest_release_tag": "v1.10.2",
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": true
       },
       "services_used": [
         "Azure OpenAI",
@@ -8832,6 +9179,7 @@
         "Agent Framework"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "human_assisted",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -8845,7 +9193,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:14:07.6361510Z"
+      "last_discovered_utc": "2026-06-28T05:01:19.2167460Z"
     },
     {
       "lab_id": "accelerators-Multi-Agent-Custom-Automation-Engine-Solution-Accelerator",
@@ -8885,7 +9233,8 @@
         "path_count": 646,
         "default_branch": "main",
         "latest_release_tag": "v4.2.4",
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": true
       },
       "services_used": [
         "Azure OpenAI",
@@ -8898,6 +9247,7 @@
         "Agent Framework"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "human_assisted",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -8911,7 +9261,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:14:11.8578211Z"
+      "last_discovered_utc": "2026-06-28T05:01:23.6442958Z"
     },
     {
       "lab_id": "accelerators-unified-data-foundation-with-fabric-solution-accelerator",
@@ -8948,7 +9298,8 @@
         "path_count": 530,
         "default_branch": "main",
         "latest_release_tag": "v1.3.6",
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": true
       },
       "services_used": [
         "Azure Container Apps",
@@ -8956,6 +9307,7 @@
         "Microsoft Fabric"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "human_assisted",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -8969,7 +9321,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:14:15.6017592Z"
+      "last_discovered_utc": "2026-06-28T05:01:28.2638305Z"
     },
     {
       "lab_id": "accelerators-Conversation-Knowledge-Mining-Solution-Accelerator",
@@ -9009,7 +9361,8 @@
         "path_count": 499,
         "default_branch": "main",
         "latest_release_tag": "v3.23.4",
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": true
       },
       "services_used": [
         "Azure OpenAI",
@@ -9025,6 +9378,7 @@
         "Agent Framework"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "human_assisted",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -9038,7 +9392,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:14:19.6649798Z"
+      "last_discovered_utc": "2026-06-28T05:01:32.7449470Z"
     },
     {
       "lab_id": "accelerators-agentic-applications-for-unified-data-foundation-solution-accelerator",
@@ -9082,7 +9436,8 @@
         "path_count": 611,
         "default_branch": "main",
         "latest_release_tag": "v1.25.4",
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": true
       },
       "services_used": [
         "Azure OpenAI",
@@ -9097,6 +9452,7 @@
         "Agent Framework"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "human_assisted",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -9110,7 +9466,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:14:24.3290904Z"
+      "last_discovered_utc": "2026-06-28T05:01:37.5580360Z"
     },
     {
       "lab_id": "accelerators-content-generation-solution-accelerator",
@@ -9150,7 +9506,8 @@
         "path_count": 284,
         "default_branch": "main",
         "latest_release_tag": "v2.7.1",
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": true
       },
       "services_used": [
         "Azure OpenAI",
@@ -9164,6 +9521,7 @@
         "Agent Framework"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "human_assisted",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -9177,7 +9535,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:14:28.8025438Z"
+      "last_discovered_utc": "2026-06-28T05:01:42.1684266Z"
     },
     {
       "lab_id": "accelerators-Modernize-your-code-solution-accelerator",
@@ -9219,7 +9577,8 @@
         "path_count": 494,
         "default_branch": "main",
         "latest_release_tag": "v1.9.1",
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -9231,6 +9590,7 @@
         "Agent Framework"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "unattended",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -9244,7 +9604,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:14:32.2741868Z"
+      "last_discovered_utc": "2026-06-28T05:01:46.5751401Z"
     },
     {
       "lab_id": "accelerators-customer-chatbot-solution-accelerator",
@@ -9285,7 +9645,8 @@
         "path_count": 439,
         "default_branch": "main",
         "latest_release_tag": "v1.4.0",
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": true
       },
       "services_used": [
         "Azure OpenAI",
@@ -9299,6 +9660,7 @@
         "Agent Framework"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "human_assisted",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -9312,7 +9674,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:14:36.0122208Z"
+      "last_discovered_utc": "2026-06-28T05:01:51.3062247Z"
     },
     {
       "lab_id": "accelerators-microsoft-iq-solution-accelerator",
@@ -9349,7 +9711,8 @@
         "path_count": 806,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": true
       },
       "services_used": [
         "Microsoft Foundry",
@@ -9359,6 +9722,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "human_assisted",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -9372,7 +9736,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:14:39.5668082Z"
+      "last_discovered_utc": "2026-06-28T05:01:56.0561706Z"
     },
     {
       "lab_id": "accelerators-ai-hub-gateway-solution-accelerator",
@@ -9407,7 +9771,8 @@
         "path_count": 206,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -9422,6 +9787,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "unattended",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -9434,7 +9800,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:14:43.7003216Z"
+      "last_discovered_utc": "2026-06-28T05:01:59.7963088Z"
     },
     {
       "lab_id": "accelerators-Prior-Authorization-Multi-Agent-Solution-Accelerator",
@@ -9472,7 +9838,8 @@
         "path_count": 189,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": true
       },
       "services_used": [
         "Azure OpenAI",
@@ -9487,6 +9854,7 @@
         "Model Context Protocol"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "human_assisted",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -9500,7 +9868,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:14:47.6135874Z"
+      "last_discovered_utc": "2026-06-28T05:02:04.7295139Z"
     },
     {
       "lab_id": "accelerators-Purview-ADB-Lineage-Solution-Accelerator",
@@ -9537,7 +9905,8 @@
         "path_count": 381,
         "default_branch": "release/2.3",
         "latest_release_tag": "2.3.1",
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure SQL",
@@ -9546,6 +9915,7 @@
         "Azure Storage"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Bicep, C#, Java, Python, Scala, Shell) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -9557,7 +9927,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:14:52.5168412Z"
+      "last_discovered_utc": "2026-06-28T05:02:08.8767558Z"
     },
     {
       "lab_id": "accelerators-Azure-Synapse-Solution-Accelerator-Financial-Analytics-Customer-Revenue-Growth-Factor",
@@ -9589,12 +9959,14 @@
         "path_count": 60,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure Storage"
       ],
       "deploy_path": "docs_only",
+      "deploy_mode": "n/a",
       "support_status": "docs_only",
       "support_reason": [
         "docs-only repo (no azure.yaml / infra / app code; path_count=60)"
@@ -9606,7 +9978,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:14:56.3435291Z"
+      "last_discovered_utc": "2026-06-28T05:02:12.6239523Z"
     },
     {
       "lab_id": "accelerators-Azure-Synapse-Retail-Recommender-Solution-Accelerator",
@@ -9647,13 +10019,15 @@
         "path_count": 381,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure Cosmos DB",
         "Azure Kubernetes Service"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Batchfile, C#, CSS, Dockerfile, HTML, Jupyter Notebook, PowerShell, Python, SCSS, TypeScript) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -9665,7 +10039,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:15:00.2470889Z"
+      "last_discovered_utc": "2026-06-28T05:02:16.2199779Z"
     },
     {
       "lab_id": "accelerators-Azure-PDF-Form-Processing-Automation-Solution-Accelerator",
@@ -9699,7 +10073,8 @@
         "path_count": 189,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure Cosmos DB",
@@ -9707,6 +10082,7 @@
         "Azure Functions"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Bicep, PowerShell, Python) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -9718,7 +10094,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:15:04.7029929Z"
+      "last_discovered_utc": "2026-06-28T05:02:20.0134327Z"
     },
     {
       "lab_id": "accelerators-Azure-Non-Fungible-Token-Solution-Accelerator",
@@ -9754,7 +10130,8 @@
         "path_count": 206,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure Cosmos DB",
@@ -9763,6 +10140,7 @@
         "Azure Key Vault"
       ],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Bicep, C#, Dockerfile, PowerShell, Solidity) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -9774,7 +10152,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:15:08.9208468Z"
+      "last_discovered_utc": "2026-06-28T05:02:24.6053745Z"
     },
     {
       "lab_id": "accelerators-Azure-Synapse-Customer-Insights-Customer360-Solution-Accelerator",
@@ -9807,10 +10185,12 @@
         "path_count": 163,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [],
       "deploy_path": "needs_iac_generation",
+      "deploy_mode": "n/a",
       "support_status": "needs_iac_generation",
       "support_reason": [
         "app code (Jupyter Notebook, Python) + Azure services, no azure.yaml → agent can generate IaC (AVM)"
@@ -9822,7 +10202,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:15:13.2650183Z"
+      "last_discovered_utc": "2026-06-28T05:02:28.0566603Z"
     },
     {
       "lab_id": "accelerators-autoauth-solution-accelerator",
@@ -9861,13 +10241,15 @@
         "path_count": 531,
         "default_branch": "main",
         "latest_release_tag": null,
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": true
       },
       "services_used": [
         "Microsoft Foundry",
         "Azure API Management"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "human_assisted",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -9881,7 +10263,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:15:16.9303875Z"
+      "last_discovered_utc": "2026-06-28T05:02:32.7091479Z"
     },
     {
       "lab_id": "accelerators-Deploy-Your-AI-Application-In-Production",
@@ -9916,7 +10298,8 @@
         "path_count": 173,
         "default_branch": "main",
         "latest_release_tag": "v1.5.3",
-        "archived": false
+        "archived": false,
+        "has_interactive_hooks": false
       },
       "services_used": [
         "Azure OpenAI",
@@ -9928,6 +10311,7 @@
         "Microsoft Fabric"
       ],
       "deploy_path": "azd",
+      "deploy_mode": "unattended",
       "support_status": "likely_supported",
       "support_reason": [
         "azure.yaml present (azure.yaml) → azd up path",
@@ -9941,7 +10325,7 @@
         "evidence": null
       },
       "source_confidence": "high",
-      "last_discovered_utc": "2026-06-28T03:15:20.4256536Z"
+      "last_discovered_utc": "2026-06-28T05:02:36.4859064Z"
     }
   ]
 }

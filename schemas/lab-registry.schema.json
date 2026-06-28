@@ -85,7 +85,8 @@
             "path_count": { "type": "integer" },
             "default_branch": { "type": ["string", "null"] },
             "latest_release_tag": { "type": ["string", "null"] },
-            "archived": { "type": "boolean" }
+            "archived": { "type": "boolean" },
+            "has_interactive_hooks": { "type": "boolean", "description": "azure.yaml declares interactive:true hooks; azd up needs a human." }
           }
         },
         "services_used": {
@@ -97,6 +98,11 @@
           "type": "string",
           "enum": ["azd", "terraform", "needs_iac_generation", "docs_only", "none", "unknown"],
           "description": "How the agent would deploy this lab."
+        },
+        "deploy_mode": {
+          "type": "string",
+          "enum": ["unattended", "human_assisted", "n/a"],
+          "description": "Whether azd up can run unattended or needs a human (interactive hooks)."
         },
         "support_status": {
           "type": "string",
