@@ -199,9 +199,13 @@ You can also get the raw structure directly:
 | Code | Title | Time | Docker | Status |
 |------|-------|------|--------|--------|
 | LAB520 | Get Started with Models in Foundry | ~3 min | No | ✅ Tested |
-| LAB540 | Observe & Protect Hosted Agents | ~10 min | Yes | ✅ Tested |
-| LAB511 | Postgres Agentic Apps (HorizonDB) | ~5 min | TBD | ⚠️ Untested |
+| LAB540 | Observe & Protect Hosted Agents | ~7 min | Yes | ✅ Tested |
+| LAB501 | Build AI Agents with Foundry | ~3.5 min | No | ✅ Tested |
+| LAB513 | AI-Powered FAQ Assistant (SQL + RAG) | ~2.5 min | No | ✅ Tested |
+| LAB511 | Postgres Agentic Apps (HorizonDB) | ~5 min | TBD | ✅ Tested |
 | LAB532 | Foundry IQ Knowledge | ~5 min | TBD | ⚠️ Untested |
+
+> **All 9 actions validated end-to-end:** `doctor`, `analyze`, `generate`, `prepare`, `deploy`, `outline`, `destroy`, `registry`, and `save-to-github`.
 
 ### Microsoft Ignite
 
@@ -226,6 +230,8 @@ Ignite labs to `team-config.yaml` to share them with your team.
 | Lab | Resources | ~Cost/hour |
 |-----|-----------|-----------|
 | LAB520 | AI Services + Project | ~$0.50 |
+| LAB501 | AI Services + ACR + AI Hub + AI Project | ~$0.60 |
+| LAB513 | Azure SQL (Serverless) + Azure OpenAI | ~$0.80 |
 | LAB540 | AI Services + ACR + Container + App Insights | ~$1.20 |
 
 > 💡 Always run `destroy` after demos to avoid unnecessary charges.
